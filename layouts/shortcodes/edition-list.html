@@ -1,98 +1,111 @@
-
 {{/*
-  AI ACROSS THE STACK — EDITION ARCHIVE
+  EDITION ARCHIVE ("All Editions" page)
 
-  All editions are read from data/editions.yaml.
+  Reads every edition from data/editions.yaml.
+  - The current edition and upcoming ones are shown first,
+    past editions below them.
+  - Banner: static/images/editions/YEAR.jpg (optional).
+  - Quick links: the pages from data/site.yaml (pages) that
+    exist for that year.
 
-  ANNUAL MAINTENANCE:
-  No changes needed here.
-
-  To add a new year:
-  1. Add it to data/editions.yaml.
-  2. Create content/YEAR/.
-  3. Set the current year in the YAML file.
+  No yearly changes needed here.
 */}}
 
-<style>
-  .aats-archive {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
-    gap: 22px;
-    margin: 36px 0;
-  }
+{{ $current := site.Data.editions.current }}
+{{ $all := sort site.Data.editions.editions "year" "desc" }}
+{{ $past := where $all "status" "past" }}
+{{ $active := where $all "status" "ne" "past" }}
 
-  .aats-archive-card {
-    padding: 28px;
+<style>
+  .ed-group-title {
+    margin: 44px 0 0;
+    font-size: .85rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #64748b;
+  }
+  .ed-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+    gap: 22px;
+    margin: 18px 0 10px;
+  }
+  .ed-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
     border: 1px solid #94a3b840;
     border-radius: 16px;
     background: #94a3b80a;
   }
-
-  .aats-archive-current {
-    border-color: #3b82f6;
-    background: #3b82f610;
+  .ed-card.is-current { border-color: #3b82f6; }
+  .ed-banner {
+    position: relative;
+    height: 150px;
+    background: linear-gradient(135deg, #152e55, #2563eb);
   }
-
-  .aats-archive-status {
-    color: #60a5fa;
-    font-size: .8rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+  .ed-banner img {
+    width: 100%; height: 100%; object-fit: cover; margin: 0;
   }
-
-  .aats-archive-card h2 {
-    margin: 16px 0;
-    font-size: 2rem;
-    font-weight: 750;
+  .ed-badge {
+    position: absolute; top: 14px; left: 14px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .72rem; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    background: #ffffffe6; color: #1e3a8a;
   }
-
-  .aats-archive-card p {
-    font-size: .95rem;
-    line-height: 1.7;
-  }
-
-  .aats-archive-link {
-    display: inline-block;
-    margin-top: 20px;
-    color: #60a5fa;
-    font-weight: 650;
-    text-decoration: none;
-  }
+  .ed-badge.past { background: #e2e8f0e6; color: #334155; }
+  .ed-body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+  .ed-body h2 { margin: 0 0 8px; font-size: 1.9rem; font-weight: 750; }
+  .ed-theme { margin: 0 0 10px; font-weight: 600; line-height: 1.5; }
+  .ed-meta { margin: 0; font-size: .9rem; color: #64748b; }
+  .ed-links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 16px 0 0; font-size: .88rem; }
+  .ed-links a, .ed-explore { color: #3b82f6; text-decoration: none; font-weight: 600; }
+  .ed-explore { margin-top: auto; padding-top: 18px; }
 </style>
 
-<div class="aats-archive">
+{{ $groups := slice
+  (dict "title" "Current & upcoming" "items" $active)
+  (dict "title" "Past editions" "items" $past) }}
 
-  {{ $current := site.Data.editions.current }}
+{{ range $groups }}
+  {{ $title := .title }}
+  {{ with .items }}
+  <h2 class="ed-group-title">{{ $title }}</h2>
+  <div class="ed-grid">
+    {{ range . }}
+      {{ $year := .year }}
+      {{ $isPast := eq .status "past" }}
+      {{ $photo := printf "images/editions/%s.jpg" $year }}
+      <article class="ed-card{{ if eq $year $current }} is-current{{ end }}">
+        <div class="ed-banner">
+          {{ if fileExists (printf "static/%s" $photo) }}
+            <img src="{{ $photo | relURL }}" alt="" loading="lazy">
+          {{ end }}
+          <span class="ed-badge{{ if $isPast }} past{{ end }}">
+            {{ if eq $year $current }}Current{{ else if $isPast }}Past{{ else }}Upcoming{{ end }}
+          </span>
+        </div>
+        <div class="ed-body">
+          <h2>{{ $year }}</h2>
+          {{ with .theme }}<p class="ed-theme">{{ . }}</p>{{ end }}
+          <p class="ed-meta">{{ .location }}{{ with .date }} · {{ . }}{{ end }}</p>
 
-  {{ range sort site.Data.editions.editions "year" "desc" }}
+          <div class="ed-links">
+            {{ range where site.Data.site.pages "show" "ne" false }}
+              {{ $label := .title }}
+              {{ with site.GetPage (printf "/%s/%s" $year .id) }}
+                <a href="{{ .RelPermalink }}">{{ $label }}</a>
+              {{ end }}
+            {{ end }}
+          </div>
 
-    {{ $isCurrent := eq .year $current }}
-
-    <article class="aats-archive-card{{ if $isCurrent }} aats-archive-current{{ end }}">
-
-      <div class="aats-archive-status">
-        {{ if $isCurrent }}
-          Current Edition
-        {{ else }}
-          Previous Edition
-        {{ end }}
-      </div>
-
-      <h2>{{ .year }}</h2>
-
-      <p><strong>{{ .theme }}</strong></p>
-
-      <p>{{ .location }}</p>
-      <p>{{ .date }}</p>
-
-      <a class="aats-archive-link"
-         href="{{ printf "%s/" .year | relURL }}">
-        Explore {{ .year }} Edition →
-      </a>
-
-    </article>
-
+          <a class="ed-explore" href="{{ printf "%s/" $year | relURL }}">Explore {{ $year }} →</a>
+        </div>
+      </article>
+    {{ end }}
+  </div>
   {{ end }}
-
-</div>
+{{ end }}

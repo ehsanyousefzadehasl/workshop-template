@@ -1,0 +1,58 @@
+
+# AI Across the Stack — Workshop Program
+#
+# ANNUAL UPDATE:
+# Create a NEW_YEAR.yaml file for each new edition.
+# Update times, session titles, descriptions, and speakers.
+# Keep previous years unchanged.
+
+status: final
+
+sessions:
+  - time: "09:00–09:30"
+    title: "Welcome, Coffee & Introductions"
+    type: break
+
+  - time: "09:30–10:15"
+    title: "Invited Perspective Talk I"
+    type: talk
+    speaker: "To be announced"
+
+  - time: "10:15–10:30"
+    title: "Coffee Break"
+    type: break
+
+  - time: "10:30–11:30"
+    title: "PhD & Postdoc Research Presentations"
+    type: research
+    description: "Problem → Approach → Evidence → Trade-off"
+
+  - time: "11:30–12:15"
+    title: "Invited Perspective Talk II"
+    type: talk
+    speaker: "To be announced"
+
+  - time: "12:15–13:15"
+    title: "Lunch & Networking"
+    type: break
+
+  - time: "13:15–14:15"
+    title: "Research Presentations & Discussion"
+    type: research
+
+  - time: "14:15–14:30"
+    title: "Coffee Break"
+    type: break
+
+  - time: "14:30–15:45"
+    title: "Research Challenge Groups"
+    type: workshop
+    description: "Identify open problems, directions, and collaborations."
+
+  - time: "15:45–16:15"
+    title: "Group Outcomes & Collaboration Opportunities"
+    type: workshop
+
+  - time: "16:15–16:30"
+    title: "Closing Discussion"
+    type: talk

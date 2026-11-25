@@ -1,11 +1,8 @@
-
 ---
-title: "Workshop Editions"
-description: "Explore current and previous editions of AI Across the Stack"
+title: "All Editions"
+description: "Current, upcoming and past editions of the workshop"
 ---
 
-AI Across the Stack is an annual research workshop connecting researchers across AI models, systems, and infrastructure.
-
-Explore the current and previous editions below.
+Every edition of the workshop in one place. Select an edition to see its program, speakers, materials and photos.
 
 {{< edition-list >}}
