@@ -104,11 +104,14 @@
 
   <nav class="edition-nav" aria-label="Edition pages">
     {{/* Cards come from the "pages:" list in data/site.yaml */}}
+    {{/* A card is shown only if the page exists for this year */}}
     {{ range where site.Data.site.pages "show" "ne" false }}
+    {{ if site.GetPage (printf "/%s/%s" $year .id) }}
     <a class="edition-link" href="{{ printf "%s%s/" $base .id | relURL }}">
       <h2>{{ .title }} →</h2>
       {{ with .description }}<p>{{ . }}</p>{{ end }}
     </a>
+    {{ end }}
     {{ end }}
   </nav>
 

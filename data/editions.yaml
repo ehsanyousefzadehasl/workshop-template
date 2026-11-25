@@ -1,16 +1,16 @@
-
 # ==================================================
-# AI ACROSS THE STACK — WORKSHOP EDITIONS
+# WORKSHOP EDITIONS
 # ==================================================
 #
-# ANNUAL UPDATE:
-# 1. Create content/NEW_YEAR/ with edition pages.
-# 2. Change current to NEW_YEAR.
-# 3. Add the new edition to the editions list.
-# 4. Mark the previous edition as past.
-# 5. Update navigation in menus.en.toml.
+# ADDING A NEW EDITION:
+# 1. Add it to the list below.
+# 2. Set "current" to its year.
+# 3. Mark the previous edition as status: past.
+# 4. Create content/NEW_YEAR/ (copy the folder of an earlier year)
+#    and data files like data/program/NEW_YEAR.yaml.
 #
-# Never delete previous editions.
+# status: upcoming | past
+# Never delete previous editions; they form the archive.
 # ==================================================
 
 current: "2027"
@@ -18,15 +18,14 @@ current: "2027"
 editions:
   - year: "2027"
     status: upcoming
-    theme: "Toward Sustainable and Efficient AI: From Models to Systems and Infrastructure"
-    location: "Copenhagen, Denmark"
+    theme: "Building Bridges Between Research and Practice"
+    location: "Example City, Country"
     date: "Date to be announced"
-    audience: "20–25 researchers"
+    audience: "20–25 participants"
 
-
-  # - year: "2028"
-  #   status: upcoming
-  #   theme: "To be announced"
-  #   location: "Copenhagen, Denmark"
-  #   date: "Date to be announced"
-  #   audience: "20–25 researchers"
+  - year: "2026"
+    status: past
+    theme: "The First Edition"
+    location: "Example City, Country"
+    date: "15 June 2026"
+    audience: "20 participants"
