@@ -49,6 +49,10 @@ pages:
     title: "Resources"
     description: "Slides, recordings and other materials."
     show: true
+  - id: gallery
+    title: "Gallery"
+    description: "Photos from the workshop."
+    show: true
 
 # ==================================================
 # HOMEPAGE SECTIONS
