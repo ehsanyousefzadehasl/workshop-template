@@ -7,7 +7,7 @@ WORKSHOP HOMEPAGE
 You normally do NOT need to edit this file.
 
 - Workshop name: config/_default/languages.en.toml (title)
-- Homepage text, themes, format: data/site.yaml
+- Homepage text and sections: data/site.yaml
 - Current year and event details: data/editions.yaml
 - Previous editions: automatically read from that file
 - Speakers, program, registration: data/<section>/YEAR.yaml
@@ -145,62 +145,42 @@ Do not modify themes/blowfish/.
   }
 
   /* ==========================================
-     RESEARCH THEMES
+     CONTENT SECTIONS — from data/site.yaml (sections)
      ========================================== */
 
-  .aat-themes {
+  .aat-section-text {
+    max-width: 720px;
+    font-size: 1.02rem;
+    line-height: 1.7;
+  }
+
+  .aat-section-text p { margin: 0 0 14px; }
+
+  .aat-cards {
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .aat-theme {
-    padding: 8px 22px 8px 0;
-  }
-
-  .aat-theme + .aat-theme {
-    border-left: 1px solid var(--aat-line);
-    padding-left: 22px;
-  }
-
-  .aat-theme-number {
-    font-size: .8rem;
-    color: var(--aat-blue);
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  .aat-theme h3 {
-    font-size: 1.25rem;
-    margin: 0 0 12px;
-  }
-
-  .aat-theme p {
-    color: var(--aat-muted);
-    font-size: .9rem;
-    margin: 0;
-  }
-
-  /* ==========================================
-     WORKSHOP FORMAT
-     ========================================== */
-
-  .aat-format {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 28px;
+    margin-top: 28px;
   }
 
-  .aat-format-item {
+  .aat-card {
     padding-top: 16px;
     border-top: 2px solid #c4d7f3;
   }
 
-  .aat-format-item h3 {
+  .aat-card-label {
+    font-size: .8rem;
+    color: var(--aat-blue);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .aat-card h3 {
     font-size: 1.2rem;
     margin: 0 0 10px;
   }
 
-  .aat-format-item p {
+  .aat-card p {
     color: var(--aat-muted);
     font-size: .9rem;
     margin: 0;
@@ -323,19 +303,8 @@ Do not modify themes/blowfish/.
       padding: 40px 0 55px;
     }
 
-    .aat-themes {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 30px;
-    }
 
-    .aat-theme + .aat-theme {
-      border-left: 0;
-      padding-left: 0;
-    }
 
-    .aat-format {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 520px) {
@@ -343,9 +312,6 @@ Do not modify themes/blowfish/.
       padding: 10px 12px 50px;
     }
 
-    .aat-themes {
-      grid-template-columns: 1fr;
-    }
 
     .aat-section-heading {
       flex-direction: column;
@@ -392,46 +358,30 @@ Do not modify themes/blowfish/.
   </section>
 
   {{/* ==========================================
-       THEMES — from data/site.yaml (themes)
+       CONTENT SECTIONS — from data/site.yaml (sections)
+       Each section can have a heading, text, and/or cards.
        ========================================== */}}
-  {{ with $site.themes }}
-  <section class="aat-section" id="themes">
-    <div class="aat-section-heading">
-      <h2>{{ .heading }}</h2>
-      {{ if $site.format }}
-      <a class="aat-text-link" href="#format">Explore the workshop format →</a>
-      {{ end }}
-    </div>
+  {{ range $site.sections }}
+  <section class="aat-section" id="{{ .heading | anchorize }}">
+    {{ with .heading }}
+    <div class="aat-section-heading"><h2>{{ . }}</h2></div>
+    {{ end }}
 
-    <div class="aat-themes">
-      {{ range .items }}
-      <div class="aat-theme">
-        {{ with .label }}<div class="aat-theme-number">{{ . }}</div>{{ end }}
-        <h3>{{ .title }}</h3>
-        <p>{{ .text }}</p>
+    {{ with .text }}
+    <div class="aat-section-text">{{ . | markdownify }}</div>
+    {{ end }}
+
+    {{ with .cards }}
+    <div class="aat-cards">
+      {{ range . }}
+      <div class="aat-card">
+        {{ with .label }}<div class="aat-card-label">{{ . }}</div>{{ end }}
+        {{ with .title }}<h3>{{ . }}</h3>{{ end }}
+        {{ with .text }}<p>{{ . | markdownify }}</p>{{ end }}
       </div>
       {{ end }}
     </div>
-  </section>
-  {{ end }}
-
-  {{/* ==========================================
-       FORMAT — from data/site.yaml (format)
-       ========================================== */}}
-  {{ with $site.format }}
-  <section class="aat-section" id="format">
-    <div class="aat-section-heading">
-      <h2>{{ .heading }}</h2>
-    </div>
-
-    <div class="aat-format">
-      {{ range .items }}
-      <div class="aat-format-item">
-        <h3>{{ .title }}</h3>
-        <p>{{ .text }}</p>
-      </div>
-      {{ end }}
-    </div>
+    {{ end }}
   </section>
   {{ end }}
 

@@ -22,30 +22,41 @@ description: >-
 # Shown next to the audience size in the hero
 format_note: "One-day interactive workshop"
 
-# Topic cards
-themes:
-  heading: "Topics"
-  items:
-    - label: "01 / FOUNDATIONS"
-      title: "Foundations"
-      text: "Core ideas, methods and theory relevant to the workshop."
-    - label: "02 / SYSTEMS"
-      title: "Systems & Tools"
-      text: "Software, infrastructure and tooling that make the ideas work."
-    - label: "03 / APPLICATIONS"
-      title: "Applications"
-      text: "Case studies and real-world use of the methods."
-    - label: "04 / EVALUATION"
-      title: "Evaluation"
-      text: "Metrics, benchmarks and lessons learned."
+# ==================================================
+# HOMEPAGE SECTIONS
+# Add as many as you like; they appear in this order.
+# Each section can have:
+#   heading: section title (optional)
+#   text:    paragraphs, Markdown allowed (optional)
+#   cards:   a row of cards with label / title / text (optional)
+# Delete a section to remove it from the homepage.
+# ==================================================
+sections:
+  - heading: "About"
+    text: |
+      Example Workshop brings together researchers and practitioners for a day
+      of talks, short presentations and discussion.
 
-# Format cards
-format:
-  heading: "Interactive by Design"
-  items:
-    - title: "Invited Talks"
-      text: "Speakers share broader perspectives on open challenges."
-    - title: "Short Presentations"
-      text: "Participants present focused work in progress."
-    - title: "Discussion Groups"
-      text: "Small groups identify open problems and possible collaborations."
+      Replace this text with a description of **your** event.
+
+  - heading: "Topics"
+    cards:
+      - label: "01"
+        title: "Foundations"
+        text: "Core ideas, methods and theory."
+      - label: "02"
+        title: "Systems & Tools"
+        text: "Software and infrastructure that make the ideas work."
+      - label: "03"
+        title: "Applications"
+        text: "Case studies and real-world use."
+
+  - heading: "Format"
+    text: "A one-day program designed for interaction."
+    cards:
+      - title: "Invited Talks"
+        text: "Speakers share perspectives on open challenges."
+      - title: "Short Presentations"
+        text: "Participants present focused work in progress."
+      - title: "Discussion Groups"
+        text: "Small groups identify open problems and collaborations."
