@@ -11,10 +11,13 @@ organizers:
     affiliation: "Example University"
     role: "Workshop Organizer"
     website: "https://example.org"
+    image: "images/placeholders/person.svg"
 
 supporters:
   - name: "Institution One"
     website: "https://example.org"
+    logo: "images/placeholders/logo.svg"
 
   - name: "Institution Two"
     website: "https://example.org"
+    logo: "images/placeholders/logo.svg"
