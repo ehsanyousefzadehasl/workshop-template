@@ -1,4 +1,4 @@
-{{/* AI Across the Stack: resolve the current edition from data/editions.yaml. */}}
+{{/* Current edition comes from data/editions.yaml; edition pages from data/site.yaml (pages). */}}
 {{ $mobileMenuStyle := .Site.Params.header.mobileMenuStyle | default "fullscreen" }}
 <div class="mobile-header-row relative flex items-center h-14 gap-4">
   {{ if hugo.IsMultilingual }}
@@ -140,6 +140,15 @@
                     {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
                   </span>
                 </a>
+              {{ end }}
+              {{ if eq .Identifier "edition" }}
+                {{ range where site.Data.site.pages "show" "ne" false }}
+                  <a href="{{ printf "%s/%s/" site.Data.editions.current .id | relURL }}"
+                     aria-label="{{ .title }}"
+                     class="flex items-center gap-3 p-2 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
+                    <span class="text-lg">{{ .title }}</span>
+                  </a>
+                {{ end }}
               {{ end }}
             </div>
           </div>

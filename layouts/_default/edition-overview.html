@@ -102,36 +102,16 @@
     </div>
   </header>
 
-  <nav class="edition-nav" aria-label="Workshop information">
-
-    <a class="edition-link" href="{{ printf "%sspeakers/" $base | relURL }}">
-      <h2>Invited Speakers →</h2>
-      <p>Meet the researchers and explore their talks.</p>
+  <nav class="edition-nav" aria-label="Edition pages">
+    {{/* Cards come from the "pages:" list in data/site.yaml */}}
+    {{ range where site.Data.site.pages "show" "ne" false }}
+    <a class="edition-link" href="{{ printf "%s%s/" $base .id | relURL }}">
+      <h2>{{ .title }} →</h2>
+      {{ with .description }}<p>{{ . }}</p>{{ end }}
     </a>
-
-    <a class="edition-link" href="{{ printf "%sprogram/" $base | relURL }}">
-      <h2>Program →</h2>
-      <p>Explore the one-day workshop schedule.</p>
-    </a>
-
-    <a class="edition-link" href="{{ printf "%sparticipation/" $base | relURL }}">
-      <h2>Participation →</h2>
-      <p>Registration, venue, and practical details.</p>
-    </a>
-
-    <a class="edition-link" href="{{ printf "%sorganizers/" $base | relURL }}">
-      <h2>Organizers →</h2>
-      <p>Organizing committee and supporting institutions.</p>
-    </a>
-
+    {{ end }}
   </nav>
 
 </div>
-
-<a class="edition-link" href="{{ printf "%sresources/" $base | relURL }}">
-  <h2>Workshop Resources →</h2>
-  <p>Presentations, recordings, reports, and research outcomes.</p>
-</a>
-
 
 {{ end }}
