@@ -23,6 +23,34 @@ description: >-
 format_note: "One-day interactive workshop"
 
 # ==================================================
+# EDITION PAGES
+# Which pages each edition has. Order here = order in the
+# menu and on the edition overview.
+# Set show: false to hide a page from the menu and overview.
+# ==================================================
+pages:
+  - id: speakers
+    title: "Speakers"
+    description: "Meet the speakers and explore their talks."
+    show: true
+  - id: program
+    title: "Program"
+    description: "The schedule for the day."
+    show: true
+  - id: participation
+    title: "Participation"
+    description: "Registration, venue and practical details."
+    show: true
+  - id: organizers
+    title: "Organizers"
+    description: "Organizing committee and supporting institutions."
+    show: true
+  - id: resources
+    title: "Resources"
+    description: "Slides, recordings and other materials."
+    show: true
+
+# ==================================================
 # HOMEPAGE SECTIONS
 # Add as many as you like; they appear in this order.
 # Each section can have:

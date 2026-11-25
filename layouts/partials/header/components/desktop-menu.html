@@ -1,4 +1,4 @@
-{{/* AI Across the Stack: resolve the current edition from data/editions.yaml. */}}
+{{/* Current edition comes from data/editions.yaml; edition pages from data/site.yaml (pages). */}}
 <nav aria-label="{{ i18n "nav.main_menu" }}" class="flex items-center gap-x-5 h-12">
   {{ if .Site.Menus.main }}
     {{ range .Site.Menus.main }}
@@ -97,6 +97,15 @@
                   {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
                 </span>
               </a>
+            {{ end }}
+            {{ if eq .Identifier "edition" }}
+              {{ range where site.Data.site.pages "show" "ne" false }}
+                <a href="{{ printf "%s/%s/" site.Data.editions.current .id | relURL }}"
+                   aria-label="{{ .title }}"
+                   class="flex items-center bf-icon-color-hover">
+                  <span class="text-sm font-sm">{{ .title }}</span>
+                </a>
+              {{ end }}
             {{ end }}
           </div>
         </div>
