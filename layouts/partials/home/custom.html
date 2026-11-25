@@ -1,18 +1,18 @@
 
 {{/*
 =========================================================
-AI ACROSS THE STACK — HOMEPAGE
+WORKSHOP HOMEPAGE
 =========================================================
 
-ANNUAL MAINTENANCE:
+You normally do NOT need to edit this file.
+
+- Workshop name: config/_default/languages.en.toml (title)
+- Homepage text and sections: data/site.yaml
 - Current year and event details: data/editions.yaml
 - Previous editions: automatically read from that file
-- Speakers, program, registration: content/YEAR/
-- General workshop text: edit sections below
+- Speakers, program, registration: data/<section>/YEAR.yaml
 - Colors and spacing: edit CSS below
-- Optional Copenhagen photo:
-  static/images/editions/2027.jpg
-  For future years, use NEW_YEAR.jpg
+- Optional edition photo: static/images/editions/YEAR.jpg
 
 Do not modify themes/blowfish/.
 =========================================================
@@ -22,6 +22,7 @@ Do not modify themes/blowfish/.
 {{ $edition := index (where site.Data.editions.editions "year" $year) 0 }}
 {{ $editionURL := printf "%s/" $year | relURL }}
 {{ $archive := where site.Data.editions.editions "year" "ne" $year }}
+{{ $site := site.Data.site }}
 
 <style>
   /* ==========================================
@@ -107,10 +108,6 @@ Do not modify themes/blowfish/.
      ========================================== */
 
   .aat-hero {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 42px;
-    align-items: center;
     padding: 65px 0 80px;
   }
 
@@ -128,7 +125,7 @@ Do not modify themes/blowfish/.
 
   .aat-hero-description {
     font-size: 1.03rem;
-    max-width: 510px;
+    max-width: 640px;
     margin-bottom: 30px;
   }
 
@@ -148,136 +145,42 @@ Do not modify themes/blowfish/.
   }
 
   /* ==========================================
-     AI STACK — PURE CSS ILLUSTRATION
-     No external image dependency
+     CONTENT SECTIONS — from data/site.yaml (sections)
      ========================================== */
 
-  .aat-stack {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 25px 0;
+  .aat-section-text {
+    max-width: 720px;
+    font-size: 1.02rem;
+    line-height: 1.7;
   }
 
-  .aat-stack-layer {
+  .aat-section-text p { margin: 0 0 14px; }
+
+  .aat-cards {
     display: grid;
-    grid-template-columns: 68px 1fr;
-    gap: 18px;
-    align-items: center;
-    padding: 23px 26px;
-    border: 1px solid #d8e4f4;
-    border-radius: 12px;
-    background: linear-gradient(120deg, #f8fbff, #eaf2ff);
-    box-shadow: 0 9px 22px #163b7510;
-  }
-
-  .aat-stack-layer:nth-child(2) {
-    margin-left: 24px;
-  }
-
-  .aat-stack-layer:nth-child(3) {
-    margin-left: 48px;
-  }
-
-  .aat-stack-symbol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 58px;
-    border: 1px solid #c1d6f3;
-    border-radius: 12px;
-    color: #2563eb;
-    background: #ffffff;
-  }
-
-  .aat-stack-symbol svg {
-    width: 31px;
-    height: 31px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .aat-stack-layer h3 {
-    font-size: 1.3rem;
-    margin: 0 0 5px;
-  }
-
-  .aat-stack-layer p {
-    margin: 0;
-    font-size: .85rem;
-    color: var(--aat-muted);
-  }
-
-  .aat-stack-caption {
-    text-align: center;
-    margin-top: 12px;
-    font-size: .8rem;
-    color: var(--aat-muted);
-    letter-spacing: .06em;
-  }
-
-  /* ==========================================
-     RESEARCH THEMES
-     ========================================== */
-
-  .aat-themes {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .aat-theme {
-    padding: 8px 22px 8px 0;
-  }
-
-  .aat-theme + .aat-theme {
-    border-left: 1px solid var(--aat-line);
-    padding-left: 22px;
-  }
-
-  .aat-theme-number {
-    font-size: .8rem;
-    color: var(--aat-blue);
-    font-weight: 700;
-    margin-bottom: 20px;
-  }
-
-  .aat-theme h3 {
-    font-size: 1.25rem;
-    margin: 0 0 12px;
-  }
-
-  .aat-theme p {
-    color: var(--aat-muted);
-    font-size: .9rem;
-    margin: 0;
-  }
-
-  /* ==========================================
-     WORKSHOP FORMAT
-     ========================================== */
-
-  .aat-format {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 28px;
+    margin-top: 28px;
   }
 
-  .aat-format-item {
+  .aat-card {
     padding-top: 16px;
     border-top: 2px solid #c4d7f3;
   }
 
-  .aat-format-item h3 {
+  .aat-card-label {
+    font-size: .8rem;
+    color: var(--aat-blue);
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .aat-card h3 {
     font-size: 1.2rem;
     margin: 0 0 10px;
   }
 
-  .aat-format-item p {
+  .aat-card p {
     color: var(--aat-muted);
     font-size: .9rem;
     margin: 0;
@@ -383,17 +286,6 @@ Do not modify themes/blowfish/.
     --aat-soft: #1e293b;
   }
 
-  .dark .aat-stack-layer {
-    background: linear-gradient(120deg, #172b48, #1e3a5f);
-    border-color: #334b69;
-  }
-
-  .dark .aat-stack-symbol {
-    background: #243b58;
-    border-color: #475d7c;
-    color: #93c5fd;
-  }
-
   .dark .aat-edition-visual {
     background: #263e5d;
   }
@@ -403,7 +295,6 @@ Do not modify themes/blowfish/.
      ========================================== */
 
   @media (max-width: 800px) {
-    .aat-hero,
     .aat-edition {
       grid-template-columns: 1fr;
     }
@@ -412,19 +303,8 @@ Do not modify themes/blowfish/.
       padding: 40px 0 55px;
     }
 
-    .aat-themes {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 30px;
-    }
 
-    .aat-theme + .aat-theme {
-      border-left: 0;
-      padding-left: 0;
-    }
 
-    .aat-format {
-      grid-template-columns: 1fr;
-    }
   }
 
   @media (max-width: 520px) {
@@ -432,9 +312,6 @@ Do not modify themes/blowfish/.
       padding: 10px 12px 50px;
     }
 
-    .aat-themes {
-      grid-template-columns: 1fr;
-    }
 
     .aat-section-heading {
       flex-direction: column;
@@ -453,187 +330,60 @@ Do not modify themes/blowfish/.
        HERO — PERMANENT IDENTITY
        ========================================== -->
 
+  {{/* ==========================================
+       HERO — text comes from data/site.yaml,
+       the name from config/_default/languages.en.toml (title)
+       ========================================== */}}
   <section class="aat-hero">
-
     <div>
-      <div class="aat-label">
-        Annual Research Workshop
-      </div>
+      {{ with $site.label }}<div class="aat-label">{{ . }}</div>{{ end }}
 
-      <h1>AI Across the Stack</h1>
+      <h1>{{ site.Title }}</h1>
 
-      <div class="aat-hero-subtitle">
-        Models. Systems. Infrastructure.
-      </div>
+      {{ with $site.subtitle }}<div class="aat-hero-subtitle">{{ . }}</div>{{ end }}
 
-      <p class="aat-hero-description">
-        A research workshop on efficient and sustainable AI,
-        bringing together researchers working across AI models,
-        computing systems, and infrastructure.
-      </p>
+      {{ with $site.description }}<p class="aat-hero-description">{{ . }}</p>{{ end }}
 
       <div class="aat-hero-meta">
         <div>
           <strong>{{ $edition.location }}</strong>
           {{ $edition.date }}
         </div>
-
         <div>
           <strong>{{ $edition.audience }}</strong>
-          One-day interactive workshop
+          {{ $site.format_note }}
         </div>
       </div>
-    </div>
-
-    <div class="aat-stack" aria-label="AI computing stack">
-
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="7" cy="9" r="2"/>
-            <circle cx="24" cy="7" r="2"/>
-            <circle cx="15" cy="17" r="2"/>
-            <circle cx="7" cy="25" r="2"/>
-            <circle cx="26" cy="25" r="2"/>
-            <path d="M9 10l4 5M22 8l-5 7M13 19l-4 4M17 18l7 6"/>
-          </svg>
-        </div>
-        <div>
-          <h3>AI Models</h3>
-          <p>Algorithms, training and inference</p>
-        </div>
-      </div>
-
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <rect x="8" y="8" width="16" height="16" rx="2"/>
-            <rect x="13" y="13" width="6" height="6"/>
-            <path d="M12 3v5M20 3v5M12 24v5M20 24v5M3 12h5M3 20h5M24 12h5M24 20h5"/>
-          </svg>
-        </div>
-        <div>
-          <h3>Computing Systems</h3>
-          <p>Runtimes, scheduling and software</p>
-        </div>
-      </div>
-
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <rect x="6" y="4" width="20" height="7" rx="1"/>
-            <rect x="6" y="13" width="20" height="7" rx="1"/>
-            <rect x="6" y="22" width="20" height="7" rx="1"/>
-            <circle cx="10" cy="7.5" r="1" fill="currentColor"/>
-            <circle cx="10" cy="16.5" r="1" fill="currentColor"/>
-            <circle cx="10" cy="25.5" r="1" fill="currentColor"/>
-          </svg>
-        </div>
-        <div>
-          <h3>Infrastructure</h3>
-          <p>Hardware, resources and datacenters</p>
-        </div>
-      </div>
-
-      <div class="aat-stack-caption">
-        Efficiency and Sustainability Across the Stack
-      </div>
-    </div>
-
-  </section>
-
-  <!-- ==========================================
-       RESEARCH THEMES — PERMANENT
-       ========================================== -->
-
-  <section class="aat-section" id="themes">
-
-    <div class="aat-section-heading">
-      <h2>Research Themes</h2>
-      <a class="aat-text-link" href="#format">
-        Explore the workshop format →
-      </a>
-    </div>
-
-    <div class="aat-themes">
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">01 / MODELS</div>
-        <h3>Efficient AI Models</h3>
-        <p>
-          Training and inference methods that reduce
-          computational requirements while maintaining quality.
-        </p>
-      </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">02 / SYSTEMS</div>
-        <h3>AI Systems</h3>
-        <p>
-          Software runtimes, scheduling, and resource
-          management for efficient AI workloads.
-        </p>
-      </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">03 / INFRASTRUCTURE</div>
-        <h3>Computing Infrastructure</h3>
-        <p>
-          Hardware, datacenters, and infrastructure
-          optimization for AI computing.
-        </p>
-      </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">04 / SUSTAINABILITY</div>
-        <h3>Measuring Impact</h3>
-        <p>
-          Metrics, methodologies, and trade-offs across
-          quality, performance, resources, and environmental impact.
-        </p>
-      </div>
-
     </div>
   </section>
 
-  <!-- ==========================================
-       WORKSHOP FORMAT — PERMANENT
-       ========================================== -->
+  {{/* ==========================================
+       CONTENT SECTIONS — from data/site.yaml (sections)
+       Each section can have a heading, text, and/or cards.
+       ========================================== */}}
+  {{ range $site.sections }}
+  <section class="aat-section" id="{{ .heading | anchorize }}">
+    {{ with .heading }}
+    <div class="aat-section-heading"><h2>{{ . }}</h2></div>
+    {{ end }}
 
-  <section class="aat-section" id="format">
+    {{ with .text }}
+    <div class="aat-section-text">{{ . | markdownify }}</div>
+    {{ end }}
 
-    <div class="aat-section-heading">
-      <h2>Interactive by Design</h2>
+    {{ with .cards }}
+    <div class="aat-cards">
+      {{ range . }}
+      <div class="aat-card">
+        {{ with .label }}<div class="aat-card-label">{{ . }}</div>{{ end }}
+        {{ with .title }}<h3>{{ . }}</h3>{{ end }}
+        {{ with .text }}<p>{{ . | markdownify }}</p>{{ end }}
+      </div>
+      {{ end }}
     </div>
-
-    <div class="aat-format">
-
-      <div class="aat-format-item">
-        <h3>Invited Perspectives</h3>
-        <p>
-          Researchers share broader perspectives on
-          emerging research challenges and opportunities.
-        </p>
-      </div>
-
-      <div class="aat-format-item">
-        <h3>Focused Research Talks</h3>
-        <p>
-          PhD students and postdocs present:
-          Problem → Approach → Evidence → Trade-off.
-        </p>
-      </div>
-
-      <div class="aat-format-item">
-        <h3>Research Challenge Groups</h3>
-        <p>
-          Junior and senior researchers identify open
-          problems, promising directions, and collaborations.
-        </p>
-      </div>
-
-    </div>
+    {{ end }}
   </section>
+  {{ end }}
 
   <!-- ==========================================
        CURRENT EDITION — DATA-DRIVEN
@@ -652,7 +402,7 @@ Do not modify themes/blowfish/.
       <div>
         <div class="aat-label">Current Edition</div>
 
-        <h2>AI Across the Stack {{ $year }}</h2>
+        <h2>{{ site.Title }} {{ $year }}</h2>
 
         <p class="aat-edition-theme">{{ $edition.theme }}</p>
 

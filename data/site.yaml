@@ -1,0 +1,62 @@
+# ==================================================
+# HOMEPAGE SETTINGS — edit this file to make the site yours
+# ==================================================
+#
+# The workshop NAME is set in config/_default/languages.en.toml (title).
+# Year, location, date and audience come from data/editions.yaml.
+#
+# Any section below can be removed to hide it on the homepage.
+# ==================================================
+
+# Small label above the workshop name
+label: "Annual Workshop"
+
+# Short line under the name
+subtitle: "Ideas. People. Collaboration."
+
+# One or two sentences describing the workshop
+description: >-
+  A one-day workshop bringing together researchers and practitioners
+  to share work in progress, discuss open problems, and start new collaborations.
+
+# Shown next to the audience size in the hero
+format_note: "One-day interactive workshop"
+
+# ==================================================
+# HOMEPAGE SECTIONS
+# Add as many as you like; they appear in this order.
+# Each section can have:
+#   heading: section title (optional)
+#   text:    paragraphs, Markdown allowed (optional)
+#   cards:   a row of cards with label / title / text (optional)
+# Delete a section to remove it from the homepage.
+# ==================================================
+sections:
+  - heading: "About"
+    text: |
+      Example Workshop brings together researchers and practitioners for a day
+      of talks, short presentations and discussion.
+
+      Replace this text with a description of **your** event.
+
+  - heading: "Topics"
+    cards:
+      - label: "01"
+        title: "Foundations"
+        text: "Core ideas, methods and theory."
+      - label: "02"
+        title: "Systems & Tools"
+        text: "Software and infrastructure that make the ideas work."
+      - label: "03"
+        title: "Applications"
+        text: "Case studies and real-world use."
+
+  - heading: "Format"
+    text: "A one-day program designed for interaction."
+    cards:
+      - title: "Invited Talks"
+        text: "Speakers share perspectives on open challenges."
+      - title: "Short Presentations"
+        text: "Participants present focused work in progress."
+      - title: "Discussion Groups"
+        text: "Small groups identify open problems and collaborations."
