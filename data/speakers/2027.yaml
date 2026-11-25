@@ -11,21 +11,24 @@ speakers:
     affiliation: "Example University"
     talk: "Efficient AI Across the Stack"
     website: "https://example.org"
+    image: "images/placeholders/person.svg"
 
   - name: "John Doe"
     affiliation: "Example University"
     talk: "Efficient AI Across the Stack"
     website: "https://example.org"
+    image: "images/placeholders/person.svg"
     
   - name: "John Doe"
     affiliation: "Example University"
     talk: "Efficient AI Across the Stack"
     website: "https://example.org"
+    image: "images/placeholders/person.svg"
 
   - name: "John Doe"
     affiliation: "Example University"
     talk: "Efficient AI Across the Stack"
     website: "https://example.org"
-
+    image: "images/placeholders/person.svg"
     
 # speakers:[]
