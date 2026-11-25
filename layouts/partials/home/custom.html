@@ -1,18 +1,18 @@
 
 {{/*
 =========================================================
-AI ACROSS THE STACK — HOMEPAGE
+WORKSHOP HOMEPAGE
 =========================================================
 
-ANNUAL MAINTENANCE:
+You normally do NOT need to edit this file.
+
+- Workshop name: config/_default/languages.en.toml (title)
+- Homepage text, themes, format: data/site.yaml
 - Current year and event details: data/editions.yaml
 - Previous editions: automatically read from that file
-- Speakers, program, registration: content/YEAR/
-- General workshop text: edit sections below
+- Speakers, program, registration: data/<section>/YEAR.yaml
 - Colors and spacing: edit CSS below
-- Optional Copenhagen photo:
-  static/images/editions/2027.jpg
-  For future years, use NEW_YEAR.jpg
+- Optional edition photo: static/images/editions/YEAR.jpg
 
 Do not modify themes/blowfish/.
 =========================================================
@@ -22,6 +22,7 @@ Do not modify themes/blowfish/.
 {{ $edition := index (where site.Data.editions.editions "year" $year) 0 }}
 {{ $editionURL := printf "%s/" $year | relURL }}
 {{ $archive := where site.Data.editions.editions "year" "ne" $year }}
+{{ $site := site.Data.site }}
 
 <style>
   /* ==========================================
@@ -453,73 +454,45 @@ Do not modify themes/blowfish/.
        HERO — PERMANENT IDENTITY
        ========================================== -->
 
+  {{/* ==========================================
+       HERO — text comes from data/site.yaml,
+       the name from config/_default/languages.en.toml (title)
+       ========================================== */}}
   <section class="aat-hero">
-
     <div>
-      <div class="aat-label">
-        Annual Research Workshop
-      </div>
+      {{ with $site.label }}<div class="aat-label">{{ . }}</div>{{ end }}
 
-      <h1>AI Across the Stack</h1>
+      <h1>{{ site.Title }}</h1>
 
-      <div class="aat-hero-subtitle">
-        Models. Systems. Infrastructure.
-      </div>
+      {{ with $site.subtitle }}<div class="aat-hero-subtitle">{{ . }}</div>{{ end }}
 
-      <p class="aat-hero-description">
-        A research workshop on efficient and sustainable AI,
-        bringing together researchers working across AI models,
-        computing systems, and infrastructure.
-      </p>
+      {{ with $site.description }}<p class="aat-hero-description">{{ . }}</p>{{ end }}
 
       <div class="aat-hero-meta">
         <div>
           <strong>{{ $edition.location }}</strong>
           {{ $edition.date }}
         </div>
-
         <div>
           <strong>{{ $edition.audience }}</strong>
-          One-day interactive workshop
+          {{ $site.format_note }}
         </div>
       </div>
     </div>
 
-    <div class="aat-stack" aria-label="AI computing stack">
-
+    {{/* Optional side panel. Remove "stack:" from data/site.yaml to hide it. */}}
+    {{ with $site.stack }}
+    <div class="aat-stack" aria-hidden="true">
+      {{ range .layers }}
       <div class="aat-stack-layer">
         <div class="aat-stack-symbol">
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="7" cy="9" r="2"/>
-            <circle cx="24" cy="7" r="2"/>
-            <circle cx="15" cy="17" r="2"/>
-            <circle cx="7" cy="25" r="2"/>
-            <circle cx="26" cy="25" r="2"/>
-            <path d="M9 10l4 5M22 8l-5 7M13 19l-4 4M17 18l7 6"/>
-          </svg>
-        </div>
-        <div>
-          <h3>AI Models</h3>
-          <p>Algorithms, training and inference</p>
-        </div>
-      </div>
-
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
+          {{ if eq .icon "systems" }}
           <svg viewBox="0 0 32 32" aria-hidden="true">
             <rect x="8" y="8" width="16" height="16" rx="2"/>
             <rect x="13" y="13" width="6" height="6"/>
             <path d="M12 3v5M20 3v5M12 24v5M20 24v5M3 12h5M3 20h5M24 12h5M24 20h5"/>
           </svg>
-        </div>
-        <div>
-          <h3>Computing Systems</h3>
-          <p>Runtimes, scheduling and software</p>
-        </div>
-      </div>
-
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
+          {{ else if eq .icon "infrastructure" }}
           <svg viewBox="0 0 32 32" aria-hidden="true">
             <rect x="6" y="4" width="20" height="7" rx="1"/>
             <rect x="6" y="13" width="20" height="7" rx="1"/>
@@ -528,112 +501,71 @@ Do not modify themes/blowfish/.
             <circle cx="10" cy="16.5" r="1" fill="currentColor"/>
             <circle cx="10" cy="25.5" r="1" fill="currentColor"/>
           </svg>
+          {{ else }}
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="7" cy="9" r="2"/>
+            <circle cx="24" cy="7" r="2"/>
+            <circle cx="15" cy="17" r="2"/>
+            <circle cx="7" cy="25" r="2"/>
+            <circle cx="26" cy="25" r="2"/>
+            <path d="M9 10l4 5M22 8l-5 7M13 19l-4 4M17 18l7 6"/>
+          </svg>
+          {{ end }}
         </div>
         <div>
-          <h3>Infrastructure</h3>
-          <p>Hardware, resources and datacenters</p>
+          <h3>{{ .title }}</h3>
+          <p>{{ .text }}</p>
         </div>
       </div>
-
-      <div class="aat-stack-caption">
-        Efficiency and Sustainability Across the Stack
-      </div>
+      {{ end }}
+      {{ with .caption }}<div class="aat-stack-caption">{{ . }}</div>{{ end }}
     </div>
-
+    {{ end }}
   </section>
 
-  <!-- ==========================================
-       RESEARCH THEMES — PERMANENT
-       ========================================== -->
-
+  {{/* ==========================================
+       THEMES — from data/site.yaml (themes)
+       ========================================== */}}
+  {{ with $site.themes }}
   <section class="aat-section" id="themes">
-
     <div class="aat-section-heading">
-      <h2>Research Themes</h2>
-      <a class="aat-text-link" href="#format">
-        Explore the workshop format →
-      </a>
+      <h2>{{ .heading }}</h2>
+      {{ if $site.format }}
+      <a class="aat-text-link" href="#format">Explore the workshop format →</a>
+      {{ end }}
     </div>
 
     <div class="aat-themes">
-
+      {{ range .items }}
       <div class="aat-theme">
-        <div class="aat-theme-number">01 / MODELS</div>
-        <h3>Efficient AI Models</h3>
-        <p>
-          Training and inference methods that reduce
-          computational requirements while maintaining quality.
-        </p>
+        {{ with .label }}<div class="aat-theme-number">{{ . }}</div>{{ end }}
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
       </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">02 / SYSTEMS</div>
-        <h3>AI Systems</h3>
-        <p>
-          Software runtimes, scheduling, and resource
-          management for efficient AI workloads.
-        </p>
-      </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">03 / INFRASTRUCTURE</div>
-        <h3>Computing Infrastructure</h3>
-        <p>
-          Hardware, datacenters, and infrastructure
-          optimization for AI computing.
-        </p>
-      </div>
-
-      <div class="aat-theme">
-        <div class="aat-theme-number">04 / SUSTAINABILITY</div>
-        <h3>Measuring Impact</h3>
-        <p>
-          Metrics, methodologies, and trade-offs across
-          quality, performance, resources, and environmental impact.
-        </p>
-      </div>
-
+      {{ end }}
     </div>
   </section>
+  {{ end }}
 
-  <!-- ==========================================
-       WORKSHOP FORMAT — PERMANENT
-       ========================================== -->
-
+  {{/* ==========================================
+       FORMAT — from data/site.yaml (format)
+       ========================================== */}}
+  {{ with $site.format }}
   <section class="aat-section" id="format">
-
     <div class="aat-section-heading">
-      <h2>Interactive by Design</h2>
+      <h2>{{ .heading }}</h2>
     </div>
 
     <div class="aat-format">
-
+      {{ range .items }}
       <div class="aat-format-item">
-        <h3>Invited Perspectives</h3>
-        <p>
-          Researchers share broader perspectives on
-          emerging research challenges and opportunities.
-        </p>
+        <h3>{{ .title }}</h3>
+        <p>{{ .text }}</p>
       </div>
-
-      <div class="aat-format-item">
-        <h3>Focused Research Talks</h3>
-        <p>
-          PhD students and postdocs present:
-          Problem → Approach → Evidence → Trade-off.
-        </p>
-      </div>
-
-      <div class="aat-format-item">
-        <h3>Research Challenge Groups</h3>
-        <p>
-          Junior and senior researchers identify open
-          problems, promising directions, and collaborations.
-        </p>
-      </div>
-
+      {{ end }}
     </div>
   </section>
+  {{ end }}
 
   <!-- ==========================================
        CURRENT EDITION — DATA-DRIVEN
@@ -652,7 +584,7 @@ Do not modify themes/blowfish/.
       <div>
         <div class="aat-label">Current Edition</div>
 
-        <h2>AI Across the Stack {{ $year }}</h2>
+        <h2>{{ site.Title }} {{ $year }}</h2>
 
         <p class="aat-edition-theme">{{ $edition.theme }}</p>
 

@@ -1,0 +1,66 @@
+# ==================================================
+# HOMEPAGE SETTINGS — edit this file to make the site yours
+# ==================================================
+#
+# The workshop NAME is set in config/_default/languages.en.toml (title).
+# Year, location, date and audience come from data/editions.yaml.
+#
+# Any section below can be removed to hide it on the homepage.
+# ==================================================
+
+# Small label above the workshop name
+label: "Annual Workshop"
+
+# Short line under the name
+subtitle: "Ideas. People. Collaboration."
+
+# One or two sentences describing the workshop
+description: >-
+  A one-day workshop bringing together researchers and practitioners
+  to share work in progress, discuss open problems, and start new collaborations.
+
+# Shown next to the audience size in the hero
+format_note: "One-day interactive workshop"
+
+# Optional panel on the right of the hero.
+# icon: models | systems | infrastructure
+stack:
+  caption: "Three perspectives, one workshop"
+  layers:
+    - title: "Ideas"
+      text: "New methods and early results"
+      icon: models
+    - title: "Tools"
+      text: "Software, systems and practice"
+      icon: systems
+    - title: "Impact"
+      text: "Applications and evaluation"
+      icon: infrastructure
+
+# Topic cards
+themes:
+  heading: "Topics"
+  items:
+    - label: "01 / FOUNDATIONS"
+      title: "Foundations"
+      text: "Core ideas, methods and theory relevant to the workshop."
+    - label: "02 / SYSTEMS"
+      title: "Systems & Tools"
+      text: "Software, infrastructure and tooling that make the ideas work."
+    - label: "03 / APPLICATIONS"
+      title: "Applications"
+      text: "Case studies and real-world use of the methods."
+    - label: "04 / EVALUATION"
+      title: "Evaluation"
+      text: "Metrics, benchmarks and lessons learned."
+
+# Format cards
+format:
+  heading: "Interactive by Design"
+  items:
+    - title: "Invited Talks"
+      text: "Speakers share broader perspectives on open challenges."
+    - title: "Short Presentations"
+      text: "Participants present focused work in progress."
+    - title: "Discussion Groups"
+      text: "Small groups identify open problems and possible collaborations."

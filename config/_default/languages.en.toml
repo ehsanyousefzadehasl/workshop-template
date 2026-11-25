@@ -2,7 +2,7 @@ disabled = false
 locale = "en"
 label = "English"
 weight = 1
-title = "AI Across the Stack"
+title = "Example Workshop"
 
 [params]
   displayName = "EN"
@@ -11,7 +11,7 @@ title = "AI Across the Stack"
   dateFormat = "2 January 2006"
   # logo = "img/logo.png"
   # secondaryLogo = "img/secondary-logo.png"
-  description = "Annual Workshop on Efficiency and Sustainability"
+  description = "An annual workshop built with the workshop template"
   # copyright = "Copy, _right?_ :thinking_face:"
 
 # [params.author]
