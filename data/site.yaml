@@ -22,21 +22,6 @@ description: >-
 # Shown next to the audience size in the hero
 format_note: "One-day interactive workshop"
 
-# Optional panel on the right of the hero.
-# icon: models | systems | infrastructure
-stack:
-  caption: "Three perspectives, one workshop"
-  layers:
-    - title: "Ideas"
-      text: "New methods and early results"
-      icon: models
-    - title: "Tools"
-      text: "Software, systems and practice"
-      icon: systems
-    - title: "Impact"
-      text: "Applications and evaluation"
-      icon: infrastructure
-
 # Topic cards
 themes:
   heading: "Topics"

@@ -108,10 +108,6 @@ Do not modify themes/blowfish/.
      ========================================== */
 
   .aat-hero {
-    display: grid;
-    grid-template-columns: 1.1fr 0.9fr;
-    gap: 42px;
-    align-items: center;
     padding: 65px 0 80px;
   }
 
@@ -129,7 +125,7 @@ Do not modify themes/blowfish/.
 
   .aat-hero-description {
     font-size: 1.03rem;
-    max-width: 510px;
+    max-width: 640px;
     margin-bottom: 30px;
   }
 
@@ -146,80 +142,6 @@ Do not modify themes/blowfish/.
     display: block;
     color: var(--aat-ink);
     font-weight: 600;
-  }
-
-  /* ==========================================
-     AI STACK — PURE CSS ILLUSTRATION
-     No external image dependency
-     ========================================== */
-
-  .aat-stack {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    padding: 25px 0;
-  }
-
-  .aat-stack-layer {
-    display: grid;
-    grid-template-columns: 68px 1fr;
-    gap: 18px;
-    align-items: center;
-    padding: 23px 26px;
-    border: 1px solid #d8e4f4;
-    border-radius: 12px;
-    background: linear-gradient(120deg, #f8fbff, #eaf2ff);
-    box-shadow: 0 9px 22px #163b7510;
-  }
-
-  .aat-stack-layer:nth-child(2) {
-    margin-left: 24px;
-  }
-
-  .aat-stack-layer:nth-child(3) {
-    margin-left: 48px;
-  }
-
-  .aat-stack-symbol {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 58px;
-    height: 58px;
-    border: 1px solid #c1d6f3;
-    border-radius: 12px;
-    color: #2563eb;
-    background: #ffffff;
-  }
-
-  .aat-stack-symbol svg {
-    width: 31px;
-    height: 31px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-  }
-
-  .aat-stack-layer h3 {
-    font-size: 1.3rem;
-    margin: 0 0 5px;
-  }
-
-  .aat-stack-layer p {
-    margin: 0;
-    font-size: .85rem;
-    color: var(--aat-muted);
-  }
-
-  .aat-stack-caption {
-    text-align: center;
-    margin-top: 12px;
-    font-size: .8rem;
-    color: var(--aat-muted);
-    letter-spacing: .06em;
   }
 
   /* ==========================================
@@ -384,17 +306,6 @@ Do not modify themes/blowfish/.
     --aat-soft: #1e293b;
   }
 
-  .dark .aat-stack-layer {
-    background: linear-gradient(120deg, #172b48, #1e3a5f);
-    border-color: #334b69;
-  }
-
-  .dark .aat-stack-symbol {
-    background: #243b58;
-    border-color: #475d7c;
-    color: #93c5fd;
-  }
-
   .dark .aat-edition-visual {
     background: #263e5d;
   }
@@ -404,7 +315,6 @@ Do not modify themes/blowfish/.
      ========================================== */
 
   @media (max-width: 800px) {
-    .aat-hero,
     .aat-edition {
       grid-template-columns: 1fr;
     }
@@ -479,48 +389,6 @@ Do not modify themes/blowfish/.
         </div>
       </div>
     </div>
-
-    {{/* Optional side panel. Remove "stack:" from data/site.yaml to hide it. */}}
-    {{ with $site.stack }}
-    <div class="aat-stack" aria-hidden="true">
-      {{ range .layers }}
-      <div class="aat-stack-layer">
-        <div class="aat-stack-symbol">
-          {{ if eq .icon "systems" }}
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <rect x="8" y="8" width="16" height="16" rx="2"/>
-            <rect x="13" y="13" width="6" height="6"/>
-            <path d="M12 3v5M20 3v5M12 24v5M20 24v5M3 12h5M3 20h5M24 12h5M24 20h5"/>
-          </svg>
-          {{ else if eq .icon "infrastructure" }}
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <rect x="6" y="4" width="20" height="7" rx="1"/>
-            <rect x="6" y="13" width="20" height="7" rx="1"/>
-            <rect x="6" y="22" width="20" height="7" rx="1"/>
-            <circle cx="10" cy="7.5" r="1" fill="currentColor"/>
-            <circle cx="10" cy="16.5" r="1" fill="currentColor"/>
-            <circle cx="10" cy="25.5" r="1" fill="currentColor"/>
-          </svg>
-          {{ else }}
-          <svg viewBox="0 0 32 32" aria-hidden="true">
-            <circle cx="7" cy="9" r="2"/>
-            <circle cx="24" cy="7" r="2"/>
-            <circle cx="15" cy="17" r="2"/>
-            <circle cx="7" cy="25" r="2"/>
-            <circle cx="26" cy="25" r="2"/>
-            <path d="M9 10l4 5M22 8l-5 7M13 19l-4 4M17 18l7 6"/>
-          </svg>
-          {{ end }}
-        </div>
-        <div>
-          <h3>{{ .title }}</h3>
-          <p>{{ .text }}</p>
-        </div>
-      </div>
-      {{ end }}
-      {{ with .caption }}<div class="aat-stack-caption">{{ . }}</div>{{ end }}
-    </div>
-    {{ end }}
   </section>
 
   {{/* ==========================================
