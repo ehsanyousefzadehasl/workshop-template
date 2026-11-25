@@ -1,0 +1,108 @@
+
+{{/*
+  REUSABLE WORKSHOP PROGRAM
+
+  Automatically determines the year from the page URL.
+  Example: /2027/program/ → data/program/2027.yaml
+
+  No annual changes required in this template.
+*/}}
+
+{{ $year := .Page.Section }}
+{{ $program := index site.Data.program $year }}
+
+<style>
+  .aats-schedule {
+    margin: 32px 0;
+  }
+
+  .aats-session {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 24px;
+    padding: 24px;
+    border-left: 3px solid #3b82f6;
+    border-bottom: 1px solid #94a3b830;
+    background: #94a3b808;
+  }
+
+  .aats-session.break {
+    border-left-color: #64748b;
+    background: #94a3b815;
+  }
+
+  .aats-session.workshop {
+    border-left-color: #0d9488;
+  }
+
+  .aats-session-time {
+    font-weight: 700;
+    color: #60a5fa;
+    font-size: .95rem;
+  }
+
+  .aats-session h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 8px;
+  }
+
+  .aats-session p {
+    color: #94a3b8;
+    font-size: .9rem;
+    margin: 6px 0;
+    line-height: 1.6;
+  }
+
+  .aats-program-status {
+    margin: 20px 0;
+    font-size: .9rem;
+    color: #94a3b8;
+  }
+
+  @media (max-width: 600px) {
+    .aats-session {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      padding: 18px;
+    }
+  }
+</style>
+
+{{ with $program }}
+
+  {{ if eq .status "tentative" }}
+    <p class="aats-program-status">
+      Tentative program — times and sessions may change.
+    </p>
+  {{ end }}
+
+  <div class="aats-schedule">
+
+    {{ range .sessions }}
+      <div class="aats-session {{ .type }}">
+
+        <div class="aats-session-time">
+          {{ .time }}
+        </div>
+
+        <div>
+          <h3>{{ .title }}</h3>
+
+          {{ with .speaker }}
+            <p><strong>Speaker:</strong> {{ . }}</p>
+          {{ end }}
+
+          {{ with .description }}
+            <p>{{ . }}</p>
+          {{ end }}
+        </div>
+
+      </div>
+    {{ end }}
+
+  </div>
+
+{{ else }}
+  <p>The workshop program will be announced soon.</p>
+{{ end }}

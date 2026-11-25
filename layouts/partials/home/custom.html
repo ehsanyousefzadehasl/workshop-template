@@ -1,0 +1,719 @@
+
+{{/*
+=========================================================
+AI ACROSS THE STACK — HOMEPAGE
+=========================================================
+
+ANNUAL MAINTENANCE:
+- Current year and event details: data/editions.yaml
+- Previous editions: automatically read from that file
+- Speakers, program, registration: content/YEAR/
+- General workshop text: edit sections below
+- Colors and spacing: edit CSS below
+- Optional Copenhagen photo:
+  static/images/editions/2027.jpg
+  For future years, use NEW_YEAR.jpg
+
+Do not modify themes/blowfish/.
+=========================================================
+*/}}
+
+{{ $year := site.Data.editions.current }}
+{{ $edition := index (where site.Data.editions.editions "year" $year) 0 }}
+{{ $editionURL := printf "%s/" $year | relURL }}
+{{ $archive := where site.Data.editions.editions "year" "ne" $year }}
+
+<style>
+  /* ==========================================
+     GLOBAL STYLING
+     ========================================== */
+
+  .aat-home {
+    --aat-ink: #14213a;
+    --aat-muted: #61718c;
+    --aat-blue: #2563eb;
+    --aat-line: #e2e8f0;
+    --aat-soft: #f3f7fc;
+
+    color: var(--aat-ink);
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 20px 28px 80px;
+    font-family: inherit;
+  }
+
+  .aat-home *,
+  .aat-home *::before,
+  .aat-home *::after {
+    box-sizing: border-box;
+  }
+
+  .aat-home h1,
+  .aat-home h2,
+  .aat-home h3 {
+    color: var(--aat-ink);
+    font-family: Georgia, "Times New Roman", serif;
+    font-weight: 500;
+    letter-spacing: -.035em;
+    line-height: 1.16;
+  }
+
+  .aat-home h2 {
+    font-size: clamp(1.9rem, 3vw, 2.5rem);
+    margin: 0;
+  }
+
+  .aat-home p {
+    line-height: 1.7;
+  }
+
+  .aat-home a {
+    text-decoration: none;
+  }
+
+  .aat-home a:hover {
+    text-decoration: underline;
+  }
+
+  .aat-label {
+    color: var(--aat-muted);
+    text-transform: uppercase;
+    letter-spacing: .17em;
+    font-size: .75rem;
+    font-weight: 650;
+  }
+
+  .aat-section {
+    border-top: 1px solid var(--aat-line);
+    padding: 43px 0 65px;
+  }
+
+  .aat-section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 20px;
+    margin-bottom: 34px;
+  }
+
+  .aat-text-link {
+    color: var(--aat-blue);
+    font-size: .9rem;
+    font-weight: 600;
+  }
+
+  /* ==========================================
+     HERO — PERMANENT WORKSHOP IDENTITY
+     ========================================== */
+
+  .aat-hero {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 42px;
+    align-items: center;
+    padding: 65px 0 80px;
+  }
+
+  .aat-hero h1 {
+    font-size: clamp(3rem, 5.3vw, 4.9rem);
+    margin: 20px 0 14px;
+  }
+
+  .aat-hero-subtitle {
+    font-size: clamp(1.25rem, 2.1vw, 1.7rem);
+    color: var(--aat-muted);
+    font-family: Georgia, serif;
+    margin-bottom: 24px;
+  }
+
+  .aat-hero-description {
+    font-size: 1.03rem;
+    max-width: 510px;
+    margin-bottom: 30px;
+  }
+
+  .aat-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    padding-top: 14px;
+    color: var(--aat-muted);
+    font-size: .9rem;
+  }
+
+  .aat-hero-meta strong {
+    display: block;
+    color: var(--aat-ink);
+    font-weight: 600;
+  }
+
+  /* ==========================================
+     AI STACK — PURE CSS ILLUSTRATION
+     No external image dependency
+     ========================================== */
+
+  .aat-stack {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 25px 0;
+  }
+
+  .aat-stack-layer {
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 18px;
+    align-items: center;
+    padding: 23px 26px;
+    border: 1px solid #d8e4f4;
+    border-radius: 12px;
+    background: linear-gradient(120deg, #f8fbff, #eaf2ff);
+    box-shadow: 0 9px 22px #163b7510;
+  }
+
+  .aat-stack-layer:nth-child(2) {
+    margin-left: 24px;
+  }
+
+  .aat-stack-layer:nth-child(3) {
+    margin-left: 48px;
+  }
+
+  .aat-stack-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border: 1px solid #c1d6f3;
+    border-radius: 12px;
+    color: #2563eb;
+    background: #ffffff;
+  }
+
+  .aat-stack-symbol svg {
+    width: 31px;
+    height: 31px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .aat-stack-layer h3 {
+    font-size: 1.3rem;
+    margin: 0 0 5px;
+  }
+
+  .aat-stack-layer p {
+    margin: 0;
+    font-size: .85rem;
+    color: var(--aat-muted);
+  }
+
+  .aat-stack-caption {
+    text-align: center;
+    margin-top: 12px;
+    font-size: .8rem;
+    color: var(--aat-muted);
+    letter-spacing: .06em;
+  }
+
+  /* ==========================================
+     RESEARCH THEMES
+     ========================================== */
+
+  .aat-themes {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .aat-theme {
+    padding: 8px 22px 8px 0;
+  }
+
+  .aat-theme + .aat-theme {
+    border-left: 1px solid var(--aat-line);
+    padding-left: 22px;
+  }
+
+  .aat-theme-number {
+    font-size: .8rem;
+    color: var(--aat-blue);
+    font-weight: 700;
+    margin-bottom: 20px;
+  }
+
+  .aat-theme h3 {
+    font-size: 1.25rem;
+    margin: 0 0 12px;
+  }
+
+  .aat-theme p {
+    color: var(--aat-muted);
+    font-size: .9rem;
+    margin: 0;
+  }
+
+  /* ==========================================
+     WORKSHOP FORMAT
+     ========================================== */
+
+  .aat-format {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 28px;
+  }
+
+  .aat-format-item {
+    padding-top: 16px;
+    border-top: 2px solid #c4d7f3;
+  }
+
+  .aat-format-item h3 {
+    font-size: 1.2rem;
+    margin: 0 0 10px;
+  }
+
+  .aat-format-item p {
+    color: var(--aat-muted);
+    font-size: .9rem;
+    margin: 0;
+  }
+
+  /* ==========================================
+     CURRENT EDITION
+     Automatically follows data/editions.yaml
+     ========================================== */
+
+  .aat-edition {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 35px;
+    align-items: center;
+    background: var(--aat-soft);
+    border-radius: 12px;
+    padding: 35px;
+  }
+
+  .aat-edition h2 {
+    margin: 12px 0 20px;
+  }
+
+  .aat-edition-theme {
+    font-size: 1.1rem;
+    margin-bottom: 18px;
+  }
+
+  .aat-edition-meta {
+    color: var(--aat-muted);
+    font-size: .9rem;
+    margin-bottom: 22px;
+  }
+
+  .aat-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--aat-blue);
+    color: white !important;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: .9rem;
+  }
+
+  .aat-button:hover {
+    background: #1d4ed8;
+    text-decoration: none !important;
+  }
+
+  .aat-edition-visual {
+    overflow: hidden;
+    border-radius: 9px;
+    background: #e0eaf8;
+  }
+
+  .aat-edition-visual img {
+    display: block;
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+  }
+
+  .aat-visual-fallback {
+    min-height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #dbeafe, #e2e8f0);
+    color: #5475a3;
+    font-family: Georgia, serif;
+    font-size: 2rem;
+  }
+
+  /* ==========================================
+     PREVIOUS EDITIONS
+     Hidden when no earlier edition exists
+     ========================================== */
+
+  .aat-archive-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+
+  .aat-archive-links a {
+    padding: 12px 20px;
+    border: 1px solid var(--aat-line);
+    border-radius: 7px;
+    color: var(--aat-ink);
+  }
+
+  /* ==========================================
+     BLOWFISH DARK MODE
+     ========================================== */
+
+  .dark .aat-home {
+    --aat-ink: #e2e8f0;
+    --aat-muted: #a4b3cc;
+    --aat-line: #334155;
+    --aat-soft: #1e293b;
+  }
+
+  .dark .aat-stack-layer {
+    background: linear-gradient(120deg, #172b48, #1e3a5f);
+    border-color: #334b69;
+  }
+
+  .dark .aat-stack-symbol {
+    background: #243b58;
+    border-color: #475d7c;
+    color: #93c5fd;
+  }
+
+  .dark .aat-edition-visual {
+    background: #263e5d;
+  }
+
+  /* ==========================================
+     RESPONSIVE DESIGN
+     ========================================== */
+
+  @media (max-width: 800px) {
+    .aat-hero,
+    .aat-edition {
+      grid-template-columns: 1fr;
+    }
+
+    .aat-hero {
+      padding: 40px 0 55px;
+    }
+
+    .aat-themes {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 30px;
+    }
+
+    .aat-theme + .aat-theme {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .aat-format {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .aat-home {
+      padding: 10px 12px 50px;
+    }
+
+    .aat-themes {
+      grid-template-columns: 1fr;
+    }
+
+    .aat-section-heading {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .aat-edition {
+      padding: 25px;
+    }
+  }
+</style>
+
+<main class="aat-home">
+
+  <!-- ==========================================
+       HERO — PERMANENT IDENTITY
+       ========================================== -->
+
+  <section class="aat-hero">
+
+    <div>
+      <div class="aat-label">
+        Annual Research Workshop
+      </div>
+
+      <h1>AI Across the Stack</h1>
+
+      <div class="aat-hero-subtitle">
+        Models. Systems. Infrastructure.
+      </div>
+
+      <p class="aat-hero-description">
+        A research workshop on efficient and sustainable AI,
+        bringing together researchers working across AI models,
+        computing systems, and infrastructure.
+      </p>
+
+      <div class="aat-hero-meta">
+        <div>
+          <strong>{{ $edition.location }}</strong>
+          {{ $edition.date }}
+        </div>
+
+        <div>
+          <strong>{{ $edition.audience }}</strong>
+          One-day interactive workshop
+        </div>
+      </div>
+    </div>
+
+    <div class="aat-stack" aria-label="AI computing stack">
+
+      <div class="aat-stack-layer">
+        <div class="aat-stack-symbol">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <circle cx="7" cy="9" r="2"/>
+            <circle cx="24" cy="7" r="2"/>
+            <circle cx="15" cy="17" r="2"/>
+            <circle cx="7" cy="25" r="2"/>
+            <circle cx="26" cy="25" r="2"/>
+            <path d="M9 10l4 5M22 8l-5 7M13 19l-4 4M17 18l7 6"/>
+          </svg>
+        </div>
+        <div>
+          <h3>AI Models</h3>
+          <p>Algorithms, training and inference</p>
+        </div>
+      </div>
+
+      <div class="aat-stack-layer">
+        <div class="aat-stack-symbol">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="8" y="8" width="16" height="16" rx="2"/>
+            <rect x="13" y="13" width="6" height="6"/>
+            <path d="M12 3v5M20 3v5M12 24v5M20 24v5M3 12h5M3 20h5M24 12h5M24 20h5"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Computing Systems</h3>
+          <p>Runtimes, scheduling and software</p>
+        </div>
+      </div>
+
+      <div class="aat-stack-layer">
+        <div class="aat-stack-symbol">
+          <svg viewBox="0 0 32 32" aria-hidden="true">
+            <rect x="6" y="4" width="20" height="7" rx="1"/>
+            <rect x="6" y="13" width="20" height="7" rx="1"/>
+            <rect x="6" y="22" width="20" height="7" rx="1"/>
+            <circle cx="10" cy="7.5" r="1" fill="currentColor"/>
+            <circle cx="10" cy="16.5" r="1" fill="currentColor"/>
+            <circle cx="10" cy="25.5" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+        <div>
+          <h3>Infrastructure</h3>
+          <p>Hardware, resources and datacenters</p>
+        </div>
+      </div>
+
+      <div class="aat-stack-caption">
+        Efficiency and Sustainability Across the Stack
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ==========================================
+       RESEARCH THEMES — PERMANENT
+       ========================================== -->
+
+  <section class="aat-section" id="themes">
+
+    <div class="aat-section-heading">
+      <h2>Research Themes</h2>
+      <a class="aat-text-link" href="#format">
+        Explore the workshop format →
+      </a>
+    </div>
+
+    <div class="aat-themes">
+
+      <div class="aat-theme">
+        <div class="aat-theme-number">01 / MODELS</div>
+        <h3>Efficient AI Models</h3>
+        <p>
+          Training and inference methods that reduce
+          computational requirements while maintaining quality.
+        </p>
+      </div>
+
+      <div class="aat-theme">
+        <div class="aat-theme-number">02 / SYSTEMS</div>
+        <h3>AI Systems</h3>
+        <p>
+          Software runtimes, scheduling, and resource
+          management for efficient AI workloads.
+        </p>
+      </div>
+
+      <div class="aat-theme">
+        <div class="aat-theme-number">03 / INFRASTRUCTURE</div>
+        <h3>Computing Infrastructure</h3>
+        <p>
+          Hardware, datacenters, and infrastructure
+          optimization for AI computing.
+        </p>
+      </div>
+
+      <div class="aat-theme">
+        <div class="aat-theme-number">04 / SUSTAINABILITY</div>
+        <h3>Measuring Impact</h3>
+        <p>
+          Metrics, methodologies, and trade-offs across
+          quality, performance, resources, and environmental impact.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       WORKSHOP FORMAT — PERMANENT
+       ========================================== -->
+
+  <section class="aat-section" id="format">
+
+    <div class="aat-section-heading">
+      <h2>Interactive by Design</h2>
+    </div>
+
+    <div class="aat-format">
+
+      <div class="aat-format-item">
+        <h3>Invited Perspectives</h3>
+        <p>
+          Researchers share broader perspectives on
+          emerging research challenges and opportunities.
+        </p>
+      </div>
+
+      <div class="aat-format-item">
+        <h3>Focused Research Talks</h3>
+        <p>
+          PhD students and postdocs present:
+          Problem → Approach → Evidence → Trade-off.
+        </p>
+      </div>
+
+      <div class="aat-format-item">
+        <h3>Research Challenge Groups</h3>
+        <p>
+          Junior and senior researchers identify open
+          problems, promising directions, and collaborations.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CURRENT EDITION — DATA-DRIVEN
+
+       Year, theme, date, location and audience
+       come from data/editions.yaml.
+
+       Optional photo:
+       static/images/editions/YEAR.jpg
+       ========================================== -->
+
+  <section class="aat-section" id="current-edition">
+
+    <div class="aat-edition">
+
+      <div>
+        <div class="aat-label">Current Edition</div>
+
+        <h2>AI Across the Stack {{ $year }}</h2>
+
+        <p class="aat-edition-theme">{{ $edition.theme }}</p>
+
+        <p class="aat-edition-meta">
+          {{ $edition.location }} · {{ $edition.date }}
+        </p>
+
+        <a href="{{ $editionURL }}" class="aat-button">
+          View {{ $year }} Edition →
+        </a>
+      </div>
+
+      <div class="aat-edition-visual">
+
+        {{ $photoPath := printf "images/editions/%s.jpg" $year }}
+
+        {{ if fileExists (printf "static/%s" $photoPath) }}
+          <img
+            src="{{ $photoPath | relURL }}"
+            alt="Host city for the {{ $year }} edition"
+            loading="lazy">
+        {{ else }}
+          <div class="aat-visual-fallback">
+            {{ $edition.location }}
+          </div>
+        {{ end }}
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PREVIOUS EDITIONS — AUTOMATIC
+
+       This section appears only when older editions
+       exist in data/editions.yaml.
+       ========================================== -->
+
+  {{ if gt (len $archive) 0 }}
+
+    <section class="aat-section" id="past-editions">
+
+      <div class="aat-section-heading">
+        <h2>Previous Editions</h2>
+
+        <a class="aat-text-link" href="{{ "editions/" | relURL }}">
+          View all editions →
+        </a>
+      </div>
+
+      <div class="aat-archive-links">
+        {{ range sort $archive "year" "desc" }}
+          <a href="{{ printf "%s/" .year | relURL }}">
+            {{ .year }} — {{ .location }} →
+          </a>
+        {{ end }}
+      </div>
+
+    </section>
+
+  {{ end }}
+
+</main>

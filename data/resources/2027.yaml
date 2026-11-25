@@ -1,0 +1,27 @@
+
+# AI Across the Stack — Workshop Resources
+#
+# ANNUAL UPDATE:
+# Create a NEW_YEAR.yaml for each edition.
+# Add links only when materials are available.
+# Leave unused categories empty.
+
+presentations: []
+# - title: "Efficient AI Training"
+#   author: "John Doe"
+#   url: "/files/2027/presentations/efficient-training.pdf"
+
+videos: []
+# - title: "Invited Talk: Sustainable AI"
+#   speaker: "Jane Doe"
+#   url: "https://www.youtube.com/watch?v=VIDEO_ID"
+
+reports: []
+# - title: "Workshop Summary and Research Directions"
+#   description: "Key challenges, discussion outcomes, and potential collaborations."
+#   url: "/files/2027/reports/workshop-summary.pdf"
+
+links: []
+# - title: "Related Research Project"
+#   description: "Software and research artifacts discussed during the workshop."
+#   url: "https://github.com/example/project"

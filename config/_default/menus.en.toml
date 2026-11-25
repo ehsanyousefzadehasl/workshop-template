@@ -1,0 +1,57 @@
+
+# AI Across the Stack — Navigation
+#
+# ANNUAL MAINTENANCE:
+# No yearly changes needed.
+# YEAR_TOKEN is replaced using data/editions.yaml.
+
+[[main]]
+  name = "Home"
+  url = "/"
+  weight = 10
+
+[[main]]
+  name = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/"
+  weight = 20
+
+[[main]]
+  name = "Overview"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/"
+  weight = 10
+
+[[main]]
+  name = "Speakers"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/speakers/"
+  weight = 20
+
+[[main]]
+  name = "Program"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/program/"
+  weight = 30
+
+[[main]]
+  name = "Participation"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/participation/"
+  weight = 40
+
+[[main]]
+  name = "Organizers"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/organizers/"
+  weight = 50
+
+[[main]]
+  name = "All Editions"
+  pageRef = "editions"
+  weight = 30
+
+[[main]]
+  name = "Resources"
+  parent = "Current Edition (YEAR_TOKEN)"
+  url = "/YEAR_TOKEN/resources/"
+  weight = 60

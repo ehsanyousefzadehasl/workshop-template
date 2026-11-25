@@ -1,0 +1,20 @@
+
+# AI Across the Stack — 2027
+#
+# ANNUAL UPDATE:
+# Copy this file to data/organizers/NEW_YEAR.yaml.
+# Store images in static/images/{organizers,supporters}/NEW_YEAR/.
+# Only publish confirmed organizers and supporters.
+
+organizers:
+  - name: "John Doe"
+    affiliation: "Example University"
+    role: "Workshop Organizer"
+    website: "https://example.org"
+
+supporters:
+  - name: "Institution One"
+    website: "https://example.org"
+
+  - name: "Institution Two"
+    website: "https://example.org"

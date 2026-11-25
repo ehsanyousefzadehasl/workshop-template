@@ -1,0 +1,98 @@
+
+{{/*
+  AI ACROSS THE STACK — EDITION ARCHIVE
+
+  All editions are read from data/editions.yaml.
+
+  ANNUAL MAINTENANCE:
+  No changes needed here.
+
+  To add a new year:
+  1. Add it to data/editions.yaml.
+  2. Create content/YEAR/.
+  3. Set the current year in the YAML file.
+*/}}
+
+<style>
+  .aats-archive {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 290px), 1fr));
+    gap: 22px;
+    margin: 36px 0;
+  }
+
+  .aats-archive-card {
+    padding: 28px;
+    border: 1px solid #94a3b840;
+    border-radius: 16px;
+    background: #94a3b80a;
+  }
+
+  .aats-archive-current {
+    border-color: #3b82f6;
+    background: #3b82f610;
+  }
+
+  .aats-archive-status {
+    color: #60a5fa;
+    font-size: .8rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .aats-archive-card h2 {
+    margin: 16px 0;
+    font-size: 2rem;
+    font-weight: 750;
+  }
+
+  .aats-archive-card p {
+    font-size: .95rem;
+    line-height: 1.7;
+  }
+
+  .aats-archive-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #60a5fa;
+    font-weight: 650;
+    text-decoration: none;
+  }
+</style>
+
+<div class="aats-archive">
+
+  {{ $current := site.Data.editions.current }}
+
+  {{ range sort site.Data.editions.editions "year" "desc" }}
+
+    {{ $isCurrent := eq .year $current }}
+
+    <article class="aats-archive-card{{ if $isCurrent }} aats-archive-current{{ end }}">
+
+      <div class="aats-archive-status">
+        {{ if $isCurrent }}
+          Current Edition
+        {{ else }}
+          Previous Edition
+        {{ end }}
+      </div>
+
+      <h2>{{ .year }}</h2>
+
+      <p><strong>{{ .theme }}</strong></p>
+
+      <p>{{ .location }}</p>
+      <p>{{ .date }}</p>
+
+      <a class="aats-archive-link"
+         href="{{ printf "%s/" .year | relURL }}">
+        Explore {{ .year }} Edition →
+      </a>
+
+    </article>
+
+  {{ end }}
+
+</div>

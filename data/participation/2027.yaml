@@ -1,0 +1,29 @@
+
+# AI Across the Stack — Participation
+#
+# ANNUAL UPDATE:
+# Copy to NEW_YEAR.yaml and update all fields.
+# Leave unconfirmed information empty.
+# Do not publish a registration link until it is ready.
+
+registration:
+  status: "coming_soon"  # coming_soon | open | closed
+  url: ""
+  deadline: ""
+  fee: ""
+  capacity: "20–25 participants"
+
+venue:
+  name: "To be announced"
+  address: ""
+  city: "Copenhagen, Denmark"
+  map_url: ""
+
+travel:
+  information: "Travel information will be provided once the venue is confirmed."
+
+accessibility:
+  information: "Accessibility information will be provided once the venue is confirmed."
+
+contact:
+  email: ""

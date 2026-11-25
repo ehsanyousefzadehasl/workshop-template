@@ -1,0 +1,116 @@
+
+{{/*
+  REUSABLE ORGANIZERS PAGE
+
+  Reads data/organizers/YEAR.yaml based on the URL.
+  No annual changes needed to this template.
+*/}}
+
+{{ $year := .Page.Section }}
+{{ $data := index site.Data.organizers $year }}
+
+<style>
+  .aats-people-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    margin: 30px 0 50px;
+  }
+  .aats-person-card {
+    border: 1px solid #94a3b830;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #94a3b80a;
+  }
+  .aats-person-photo {
+    height: 190px;
+    background: linear-gradient(135deg, #152e55, #2563eb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+  }
+  .aats-person-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .aats-person-info {
+    padding: 22px;
+  }
+  .aats-person-info h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .aats-person-info p {
+    margin: 5px 0;
+    font-size: .9rem;
+  }
+  .aats-person-info a,
+  .aats-supporter a {
+    color: #60a5fa;
+  }
+  .aats-supporters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 28px;
+    align-items: center;
+    margin-top: 24px;
+  }
+  .aats-supporter img {
+    max-width: 170px;
+    max-height: 75px;
+    object-fit: contain;
+  }
+</style>
+
+{{ with $data }}
+
+  {{ with .organizers }}
+    <div class="aats-people-grid">
+      {{ range . }}
+        <article class="aats-person-card">
+          <div class="aats-person-photo">
+            {{ if .image }}
+              <img src="{{ .image | relURL }}" alt="Portrait of {{ .name }}">
+            {{ else }}
+              {{ substr .name 0 1 | upper }}
+            {{ end }}
+          </div>
+          <div class="aats-person-info">
+            <h3>{{ .name }}</h3>
+            <p>{{ .affiliation }}</p>
+            <p>{{ .role }}</p>
+            {{ with .website }}
+              <p><a href="{{ . }}" target="_blank" rel="noopener noreferrer">Profile →</a></p>
+            {{ end }}
+          </div>
+        </article>
+      {{ end }}
+    </div>
+  {{ else }}
+    <p>The organizing committee will be announced soon.</p>
+  {{ end }}
+
+  {{ with .supporters }}
+    <h2>Supporting Institutions</h2>
+    <div class="aats-supporters">
+      {{ range . }}
+        <div class="aats-supporter">
+          {{ if .website }}<a href="{{ .website }}">{{ end }}
+            {{ if .logo }}
+              <img src="{{ .logo | relURL }}" alt="{{ .name }}">
+            {{ else }}
+              {{ .name }}
+            {{ end }}
+          {{ if .website }}</a>{{ end }}
+        </div>
+      {{ end }}
+    </div>
+  {{ end }}
+
+{{ else }}
+  <p>Organizing committee details will be announced soon.</p>
+{{ end }}

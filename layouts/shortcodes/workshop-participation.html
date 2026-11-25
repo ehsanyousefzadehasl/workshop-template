@@ -1,0 +1,112 @@
+
+{{/*
+  AI ACROSS THE STACK — PARTICIPATION
+
+  Reads data/participation/YEAR.yaml.
+  No annual changes needed here.
+*/}}
+
+{{ $year := .Page.Section }}
+{{ $data := index site.Data.participation $year }}
+
+<style>
+  .aats-info-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    margin: 28px 0;
+  }
+  .aats-info-card {
+    padding: 28px;
+    border: 1px solid #94a3b830;
+    border-radius: 16px;
+    background: #94a3b80a;
+  }
+  .aats-info-card h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+  .aats-info-card p {
+    line-height: 1.7;
+    margin: 8px 0;
+  }
+  .aats-info-button {
+    display: inline-block;
+    padding: 11px 20px;
+    margin-top: 15px;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white !important;
+    text-decoration: none !important;
+    font-weight: 650;
+  }
+  @media (max-width: 700px) {
+    .aats-info-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+{{ with $data }}
+<div class="aats-info-grid">
+
+  <section class="aats-info-card">
+    <h2>Registration</h2>
+
+    {{ if and (eq .registration.status "open") .registration.url }}
+      <p>Registration is open.</p>
+      <a class="aats-info-button"
+         href="{{ .registration.url }}"
+         target="_blank" rel="noopener noreferrer">
+        Register for the Workshop →
+      </a>
+    {{ else if eq .registration.status "closed" }}
+      <p>Registration is closed.</p>
+    {{ else }}
+      <p>Registration details will be announced soon.</p>
+    {{ end }}
+
+    <p><strong>Capacity:</strong> {{ .registration.capacity }}</p>
+
+    {{ with .registration.deadline }}
+      <p><strong>Deadline:</strong> {{ . }}</p>
+    {{ end }}
+
+    {{ with .registration.fee }}
+      <p><strong>Fee:</strong> {{ . }}</p>
+    {{ end }}
+  </section>
+
+  <section class="aats-info-card">
+    <h2>Venue</h2>
+    <p><strong>{{ .venue.name }}</strong></p>
+    <p>{{ .venue.city }}</p>
+
+    {{ with .venue.address }}
+      <p>{{ . }}</p>
+    {{ end }}
+
+    {{ with .venue.map_url }}
+      <p><a href="{{ . }}" target="_blank"
+            rel="noopener noreferrer">View Map →</a></p>
+    {{ end }}
+  </section>
+
+  <section class="aats-info-card">
+    <h2>Travel & Accommodation</h2>
+    <p>{{ .travel.information }}</p>
+  </section>
+
+  <section class="aats-info-card">
+    <h2>Accessibility</h2>
+    <p>{{ .accessibility.information }}</p>
+  </section>
+
+</div>
+
+{{ with .contact.email }}
+  <p>Questions? Contact <a href="mailto:{{ . }}">{{ . }}</a>.</p>
+{{ end }}
+
+{{ else }}
+  <p>Participation details will be announced soon.</p>
+{{ end }}
