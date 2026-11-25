@@ -1,6 +1,6 @@
 
 ---
-title: "AI Across the Stack 2027"
+title: "Example Workshop 2027"
 layout: "edition-overview"
 
 # Annual maintenance:

@@ -1,5 +1,5 @@
 
-# AI Across the Stack — Workshop Program
+# Workshop program
 #
 # ANNUAL UPDATE:
 # Create a NEW_YEAR.yaml file for each new edition.
@@ -14,7 +14,7 @@ sessions:
     type: break
 
   - time: "09:30–10:15"
-    title: "Invited Perspective Talk I"
+    title: "Invited Talk I"
     type: talk
     speaker: "To be announced"
 
@@ -23,12 +23,12 @@ sessions:
     type: break
 
   - time: "10:30–11:30"
-    title: "PhD & Postdoc Research Presentations"
+    title: "Short Research Presentations"
     type: research
-    description: "Problem → Approach → Evidence → Trade-off"
+    description: "Five-minute talks followed by questions."
 
   - time: "11:30–12:15"
-    title: "Invited Perspective Talk II"
+    title: "Invited Talk II"
     type: talk
     speaker: "To be announced"
 
@@ -45,7 +45,7 @@ sessions:
     type: break
 
   - time: "14:30–15:45"
-    title: "Research Challenge Groups"
+    title: "Discussion Groups"
     type: workshop
     description: "Identify open problems, directions, and collaborations."
 

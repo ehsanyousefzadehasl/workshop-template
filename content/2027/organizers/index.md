@@ -1,9 +1,9 @@
 
 ---
 title: "Organizers"
-description: "Organizing committee and supporting institutions — AI Across the Stack 2027"
+description: "Organizing committee and supporting institutions of the 2027 edition"
 ---
 
-The workshop is organized by researchers working across AI models, systems, and computing infrastructure.
+The people and institutions behind the workshop.
 
 {{< workshop-organizers >}}

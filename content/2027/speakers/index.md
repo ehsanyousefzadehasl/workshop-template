@@ -1,9 +1,9 @@
 
 ---
 title: "Invited Speakers"
-description: "Invited speakers at AI Across the Stack 2027"
+description: "Invited speakers of the 2027 edition"
 ---
 
-The workshop will feature invited researchers from European institutions, sharing perspectives on efficient AI models, software systems, and sustainable computing infrastructure.
+This year's invited speakers. Edit the list in `data/speakers/2027.yaml`.
 
 {{< workshop-speakers >}}
