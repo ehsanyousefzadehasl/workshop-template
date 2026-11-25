@@ -1,5 +1,5 @@
 
-# AI Across the Stack — Participation
+# Participation
 #
 # ANNUAL UPDATE:
 # Copy to NEW_YEAR.yaml and update all fields.
@@ -16,7 +16,7 @@ registration:
 venue:
   name: "To be announced"
   address: ""
-  city: "Copenhagen, Denmark"
+  city: "Example City, Country"
   map_url: ""
 
 travel:

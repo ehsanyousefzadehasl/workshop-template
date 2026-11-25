@@ -1,7 +1,7 @@
 
 ---
 title: "Workshop Resources"
-description: "Presentations, recordings, reports, and research materials from AI Across the Stack 2027."
+description: "Slides, recordings and other materials from the 2027 edition"
 ---
 
 This page collects presentations, recorded talks, research materials, and outcomes from the workshop.

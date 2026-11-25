@@ -1,34 +1,37 @@
+# ==================================================
+# INVITED SPEAKERS — 2027
+# ==================================================
+# NEW EDITION: copy this file to data/speakers/NEW_YEAR.yaml.
+# Add only speakers who have confirmed.
+#
+# Fields:
+#   name, affiliation        required
+#   talk                     optional talk title
+#   website                  optional link
+#   image                    optional photo, e.g. "images/speakers/2027/name.jpg"
+#                            (no leading slash; without image, the initial is shown)
+#
+# No speakers yet? Use:  speakers: []
+# ==================================================
 
-# AI Across the Stack — 2027 Invited Speakers
-#
-# ANNUAL UPDATE:
-# Create a new file, e.g. 2028.yaml.
-# Add only speakers who have confirmed participation.
-#
-# Example:
 speakers:
-  - name: "John Doe"
+  - name: "Alex Example"
     affiliation: "Example University"
-    talk: "Efficient AI Across the Stack"
+    talk: "Opening Perspectives"
     website: "https://example.org"
     image: "images/placeholders/person.svg"
 
-  - name: "John Doe"
-    affiliation: "Example University"
-    talk: "Efficient AI Across the Stack"
-    website: "https://example.org"
-    image: "images/placeholders/person.svg"
-    
-  - name: "John Doe"
-    affiliation: "Example University"
-    talk: "Efficient AI Across the Stack"
+  - name: "Sam Sample"
+    affiliation: "Institute of Examples"
+    talk: "Lessons from Practice"
     website: "https://example.org"
     image: "images/placeholders/person.svg"
 
-  - name: "John Doe"
-    affiliation: "Example University"
-    talk: "Efficient AI Across the Stack"
+  - name: "Jordan Demo"
+    affiliation: "Sample Research Lab"
+    talk: "Open Problems and Directions"
     website: "https://example.org"
-    image: "images/placeholders/person.svg"
-    
-# speakers:[]
+
+  - name: "Taylor Placeholder"
+    affiliation: "Example Company"
+    talk: "From Research to Product"

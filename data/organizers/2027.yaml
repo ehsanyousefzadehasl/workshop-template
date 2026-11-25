@@ -1,23 +1,28 @@
-
-# AI Across the Stack — 2027
-#
-# ANNUAL UPDATE:
-# Copy this file to data/organizers/NEW_YEAR.yaml.
-# Store images in static/images/{organizers,supporters}/NEW_YEAR/.
-# Only publish confirmed organizers and supporters.
+# ==================================================
+# ORGANIZERS AND SUPPORTERS — 2027
+# ==================================================
+# NEW EDITION: copy this file to data/organizers/NEW_YEAR.yaml.
+# Images: put them in static/images/... and write the path
+# without a leading slash, e.g. "images/organizers/2027/name.jpg".
+# ==================================================
 
 organizers:
-  - name: "John Doe"
+  - name: "Riley Organizer"
     affiliation: "Example University"
-    role: "Workshop Organizer"
+    role: "General Chair"
     website: "https://example.org"
     image: "images/placeholders/person.svg"
 
+  - name: "Casey Coordinator"
+    affiliation: "Institute of Examples"
+    role: "Program Chair"
+    website: "https://example.org"
+
 supporters:
-  - name: "Institution One"
+  - name: "Example Foundation"
     website: "https://example.org"
     logo: "images/placeholders/logo.svg"
 
-  - name: "Institution Two"
+  - name: "Sample Institute"
     website: "https://example.org"
     logo: "images/placeholders/logo.svg"
