@@ -1,0 +1,20 @@
+# ==================================================
+# SPEAKERS — 2026 (demo past edition)
+# ==================================================
+# Kept as part of the archive. Past editions are never deleted.
+# ==================================================
+
+speakers:
+  - name: "Robin Sample"
+    affiliation: "Example University"
+    talk: "Where We Started"
+    website: "https://example.org"
+
+  - name: "Noor Demo"
+    affiliation: "Institute of Examples"
+    talk: "Lessons from Year One"
+    image: "images/placeholders/person.svg"
+
+  - name: "Kai Placeholder"
+    affiliation: "Sample Research Lab"
+    talk: "Building a Community"

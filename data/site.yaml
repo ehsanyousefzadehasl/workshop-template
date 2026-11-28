@@ -43,7 +43,9 @@ palette: sage
 # EDITION PAGES
 # Which pages each edition has. Order here = order in the
 # menu and on the edition overview.
-# Set show: false to hide a page from the menu and overview.
+# Set show: false to hide a page for the CURRENT edition (menu and
+# overview). Past editions are an archive and always keep every page
+# they have, so nothing from earlier years disappears.
 # ==================================================
 pages:
   - id: speakers

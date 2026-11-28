@@ -1,0 +1,25 @@
+# ==================================================
+# PARTICIPATION — 2026 (demo past edition)
+# ==================================================
+
+registration:
+  status: "closed"
+  url: ""
+  deadline: ""
+  fee: ""
+  capacity: "20 participants"
+
+venue:
+  name: "Example Conference Centre"
+  address: ""
+  city: "Example City, Country"
+  map_url: ""
+
+travel:
+  information: ""
+
+accessibility:
+  information: ""
+
+contact:
+  email: ""
