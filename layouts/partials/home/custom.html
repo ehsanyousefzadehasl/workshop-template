@@ -440,17 +440,17 @@ Do not modify themes/blowfish/.
       {{ with $site.subtitle }}<p class="w-subtitle">{{ . }}</p>{{ end }}
       {{ with $site.description }}<p class="w-desc">{{ . }}</p>{{ end }}
 
+      {{/* General facts about the event (not one edition): "facts:" in data/site.yaml */}}
+      {{ with $site.facts }}
       <div class="w-facts">
-        {{ with $edition.date }}<span>📅 {{ . }}</span>{{ end }}
-        {{ with $edition.location }}<span>📍 {{ . }}</span>{{ end }}
-        {{ with $edition.audience }}<span>👥 {{ . }}</span>{{ end }}
+        {{ range . }}<span>{{ with .icon }}{{ . }} {{ end }}{{ .text }}</span>{{ end }}
       </div>
+      {{ end }}
 
+      {{/* One clear call to action: the current edition */}}
+      {{ $label := cond (eq $edition.status "past") (printf "Relive %s →" $year) (printf "Join us in %s →" $year) }}
       <div class="w-actions">
-        <a class="w-btn w-btn-primary" href="{{ $editionURL }}">Explore {{ $year }} →</a>
-        {{ if site.GetPage (printf "/%s/program" $year) }}
-        <a class="w-btn w-btn-ghost" href="{{ printf "%s/program/" $year | relURL }}">See the program</a>
-        {{ end }}
+        <a class="w-btn w-btn-primary" href="{{ $editionURL }}">{{ $site.button | default $label }}</a>
       </div>
     </div>
 
