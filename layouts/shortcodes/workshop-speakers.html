@@ -1,112 +1,36 @@
-
 {{/*
-  AUTOMATIC SPEAKER CARDS
+  SPEAKER CARDS
 
-  Reads data/speakers/YEAR.yaml.
+  Reads data/speakers/YEAR.yaml (YEAR = the folder of the page,
+  e.g. content/2027/speakers/ -> 2027).
+  Styles: assets/css/custom.css ("People").
 
-  The year is determined by the page location:
-    /2027/speakers/ -> 2027
-    /2028/speakers/ -> 2028
-
-  ANNUAL MAINTENANCE:
-  No changes required here.
+  No yearly changes needed here.
 */}}
 
 {{ $year := .Page.Section }}
-{{ $data := index site.Data.speakers $year }}
+{{ $data := index hugo.Data.speakers $year }}
 
-<style>
-  .workshop-speakers {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 24px;
-    margin-top: 36px;
-  }
-
-  .workshop-speaker {
-    overflow: hidden;
-    border: 1px solid #94a3b840;
-    border-radius: 16px;
-    background: #94a3b80a;
-  }
-
-  .workshop-speaker-image {
-    height: 210px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #152e55, #2563eb);
-    color: white;
-    font-size: 3rem;
-    font-weight: 700;
-  }
-
-  .workshop-speaker-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .workshop-speaker-info {
-    padding: 24px;
-  }
-
-  .workshop-speaker-info h3 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .workshop-speaker-info p {
-    margin: 8px 0;
-    font-size: .95rem;
-    line-height: 1.6;
-  }
-
-  .workshop-speaker-info a {
-    color: #60a5fa;
-    text-decoration: none;
-  }
-</style>
-
-{{ with $data }}
-  {{ if .speakers }}
-
-    <div class="workshop-speakers">
-      {{ range .speakers }}
-        <article class="workshop-speaker">
-
-          <div class="workshop-speaker-image">
-            {{ if .image }}
-              <img src="{{ .image | relURL }}"
-                   alt="Portrait of {{ .name }}">
-            {{ else }}
-              {{ substr .name 0 1 | upper }}
-            {{ end }}
-          </div>
-
-          <div class="workshop-speaker-info">
-            <h3>{{ .name }}</h3>
-            <p>{{ .affiliation }}</p>
-
-            {{ with .talk }}
-              <p><strong>Talk:</strong> {{ . }}</p>
-            {{ end }}
-
-            {{ with .website }}
-              <a href="{{ . }}" target="_blank" rel="noopener noreferrer">
-                Research Profile →
-              </a>
-            {{ end }}
-          </div>
-
-        </article>
-      {{ end }}
-    </div>
-
-  {{ else }}
-    <p>Invited speakers will be announced soon.</p>
-  {{ end }}
+{{ with $data.speakers }}
+  <div class="w-people w-wide">
+    {{ range . }}
+      <article class="w-person">
+        <div class="w-avatar">
+          {{ with .image }}
+            <img src="{{ . | relURL }}" alt="Portrait" loading="lazy">
+          {{ else }}
+            {{ substr .name 0 1 | upper }}
+          {{ end }}
+        </div>
+        <h3>{{ .name }}</h3>
+        {{ with .affiliation }}<p class="w-person-meta">{{ . }}</p>{{ end }}
+        {{ with .talk }}<p class="w-talk">{{ . }}</p>{{ end }}
+        {{ with .website }}
+          <a class="w-pill-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">Profile →</a>
+        {{ end }}
+      </article>
+    {{ end }}
+  </div>
 {{ else }}
-  <p>Invited speakers will be announced soon.</p>
+  <p>Speakers will be announced soon.</p>
 {{ end }}
