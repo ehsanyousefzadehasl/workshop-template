@@ -1,81 +1,41 @@
-
 {{/*
-  REUSABLE WORKSHOP RESOURCES
-  Reads data/resources/YEAR.yaml.
+  RESOURCES
 
-  ANNUAL MAINTENANCE:
-  No changes required here.
+  Reads data/resources/YEAR.yaml (YEAR = the folder of the page).
+  Styles: assets/css/custom.css.
+
+  No yearly changes needed here.
 */}}
 
 {{ $year := .Page.Section }}
-{{ $data := index site.Data.resources $year }}
-
-<style>
-  .aats-resource-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
-    gap: 18px;
-    margin: 24px 0 40px;
-  }
-
-  .aats-resource-card {
-    padding: 24px;
-    border: 1px solid #94a3b840;
-    border-radius: 14px;
-    background: #94a3b80a;
-  }
-
-  .aats-resource-card h3 {
-    font-size: 1.1rem;
-    font-weight: 700;
-    margin-bottom: 10px;
-  }
-
-  .aats-resource-card p {
-    color: #94a3b8;
-    font-size: .9rem;
-    line-height: 1.6;
-  }
-
-  .aats-resource-card a {
-    display: inline-block;
-    margin-top: 12px;
-    color: #60a5fa;
-    font-weight: 650;
-    text-decoration: none;
-  }
-</style>
+{{ $data := index hugo.Data.resources $year }}
 
 {{ with $data }}
-
   {{ $categories := slice
     (dict "title" "Presentations" "items" .presentations "icon" "📄")
-    (dict "title" "Talk Recordings" "items" .videos "icon" "▶")
-    (dict "title" "Workshop Reports" "items" .reports "icon" "📋")
-    (dict "title" "Additional Resources" "items" .links "icon" "🔗")
+    (dict "title" "Recordings" "items" .videos "icon" "🎬")
+    (dict "title" "Reports and summaries" "items" .reports "icon" "📝")
+    (dict "title" "Links" "items" .links "icon" "🔗")
   }}
-
-  {{ $hasResources := false }}
+  {{ $has := false }}
 
   {{ range $categories }}
+    {{ with .items }}
+      {{ $has = true }}
+    {{ end }}
     {{ if .items }}
-      {{ $hasResources = true }}
-
-      <h2>{{ .icon }} {{ .title }}</h2>
-
-      <div class="aats-resource-grid">
+      <h2 class="w-section-title"><span class="w-icon" aria-hidden="true">{{ .icon }}</span>{{ .title }}</h2>
+      <div class="w-cards w-wide">
         {{ range .items }}
-          <article class="aats-resource-card">
+          <article class="w-card">
             <h3>{{ .title }}</h3>
-
-            {{ with .author }}<p>{{ . }}</p>{{ end }}
-            {{ with .speaker }}<p>{{ . }}</p>{{ end }}
+            {{ with .author }}<p class="w-muted">{{ . }}</p>{{ end }}
+            {{ with .speaker }}<p class="w-muted">{{ . }}</p>{{ end }}
             {{ with .description }}<p>{{ . }}</p>{{ end }}
-
             {{ with .url }}
-              <a href="{{ . | safeURL }}" target="_blank" rel="noopener noreferrer">
-                Open Resource →
-              </a>
+              {{/* Local files (e.g. "files/2027/talk.pdf") get the site's base path */}}
+              {{ $href := cond (or (hasPrefix . "http://") (hasPrefix . "https://")) . (relURL .) }}
+              <a class="w-pill-link" href="{{ $href }}" target="_blank" rel="noopener noreferrer">Open →</a>
             {{ end }}
           </article>
         {{ end }}
@@ -83,10 +43,9 @@
     {{ end }}
   {{ end }}
 
-  {{ if not $hasResources }}
-    <p>Workshop materials, presentations, and reports will be shared here when available.</p>
+  {{ if not $has }}
+    <p class="w-note">Slides, summaries and other materials will be shared here after the event.</p>
   {{ end }}
-
 {{ else }}
-  <p>Workshop resources will be available after the event.</p>
+  <p class="w-note">Materials will be shared here after the event.</p>
 {{ end }}
