@@ -107,7 +107,9 @@
           <p class="ed-meta">{{ .location }}{{ with .date }} · {{ . }}{{ end }}</p>
 
           <div class="ed-links">
-            {{ range where hugo.Data.site.pages "show" "ne" false }}
+            {{/* Past editions keep all their pages; "show: false" only affects current/upcoming */}}
+            {{ $pages := cond $isPast hugo.Data.site.pages (where hugo.Data.site.pages "show" "ne" false) }}
+            {{ range $pages }}
               {{ $label := .title }}
               {{ with site.GetPage (printf "/%s/%s" $year .id) }}
                 <a href="{{ .RelPermalink }}">{{ $label }}</a>

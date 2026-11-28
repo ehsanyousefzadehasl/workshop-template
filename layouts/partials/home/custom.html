@@ -18,11 +18,11 @@ Do not modify themes/blowfish/.
 =========================================================
 */}}
 
-{{ $year := site.Data.editions.current }}
-{{ $edition := index (where site.Data.editions.editions "year" $year) 0 }}
+{{ $year := hugo.Data.editions.current }}
+{{ $edition := index (where hugo.Data.editions.editions "year" $year) 0 }}
 {{ $editionURL := printf "%s/" $year | relURL }}
-{{ $archive := where site.Data.editions.editions "year" "ne" $year }}
-{{ $site := site.Data.site }}
+{{ $archive := where hugo.Data.editions.editions "year" "ne" $year }}
+{{ $site := hugo.Data.site }}
 
 
 <style>

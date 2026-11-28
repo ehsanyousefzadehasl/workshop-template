@@ -88,7 +88,7 @@
     <div class="px-2">
       <div class="flex items-center gap-4">
         <a
-          href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+          href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
           {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
           {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
             target="_blank"
@@ -100,7 +100,7 @@
             </span>
           {{ end }}
           <span title="{{ .Title }}" class="text-2xl font-bold tracking-tight">
-            {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
+            {{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}
           </span>
         </a>
         {{ if .HasChildren }}
@@ -125,7 +125,7 @@
             <div class="ms-7 mt-4">
               {{ range .Children }}
                 <a
-                  href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+                  href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
                   {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
                   {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
                     target="_blank"
@@ -137,13 +137,13 @@
                     </span>
                   {{ end }}
                   <span title="{{ .Title }}" class="text-lg">
-                    {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
+                    {{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}
                   </span>
                 </a>
               {{ end }}
               {{ if eq .Identifier "edition" }}
-                {{ range where site.Data.site.pages "show" "ne" false }}
-                  <a href="{{ printf "%s/%s/" site.Data.editions.current .id | relURL }}"
+                {{ range where hugo.Data.site.pages "show" "ne" false }}
+                  <a href="{{ printf "%s/%s/" hugo.Data.editions.current .id | relURL }}"
                      aria-label="{{ .title }}"
                      class="flex items-center gap-3 p-2 group bf-icon-color-hover text-neutral-700 dark:text-neutral-200">
                     <span class="text-lg">{{ .title }}</span>
@@ -163,7 +163,7 @@
     <div class="flex flex-wrap gap-4 mt-8 pt-8 border-t bf-border-color">
       {{ range .Site.Menus.subnavigation }}
         <a
-          href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+          href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
           {{ with or .Name .Pre }}aria-label="{{ . }}"{{ end }}
           class="inline-flex items-center gap-2 px-2 py-2 bf-icon-color-hover rounded-full text-sm">
           {{ if .Pre }}
@@ -171,7 +171,7 @@
               {{ partial "icon.html" .Pre }}
             </span>
           {{ end }}
-          <span title="{{ .Title }}">{{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}</span>
+          <span title="{{ .Title }}">{{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}</span>
         </a>
       {{ end }}
     </div>

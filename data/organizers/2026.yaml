@@ -1,0 +1,17 @@
+# ==================================================
+# ORGANIZERS AND SUPPORTERS — 2026 (demo past edition)
+# ==================================================
+
+organizers:
+  - name: "Riley Organizer"
+    affiliation: "Example University"
+    role: "General Chair"
+
+  - name: "Morgan Helper"
+    affiliation: "Sample Research Lab"
+    role: "Local Arrangements"
+
+supporters:
+  - name: "Example Foundation"
+    website: "https://example.org"
+    logo: "images/placeholders/logo.svg"

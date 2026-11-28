@@ -52,7 +52,7 @@
       <div class="cursor-pointer flex items-center">
         <a
           {{ if .URL }}
-            href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+            href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
             {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
               target="_blank"
             {{ end }}
@@ -70,7 +70,7 @@
             </span>
           {{ end }}
           <span class="text-sm font-medium break-normal" title="{{ .Title }}">
-            {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
+            {{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}
           </span>
           <span>
             {{ partial "icon.html" "chevron-down" }}
@@ -82,7 +82,7 @@
           <div class="flex flex-col space-y-3">
             {{ range .Children }}
               <a
-                href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+                href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
                 {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
                   target="_blank"
                 {{ end }}
@@ -94,13 +94,13 @@
                   </span>
                 {{ end }}
                 <span class="text-sm font-sm" title="{{ .Title }}">
-                  {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
+                  {{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}
                 </span>
               </a>
             {{ end }}
             {{ if eq .Identifier "edition" }}
-              {{ range where site.Data.site.pages "show" "ne" false }}
-                <a href="{{ printf "%s/%s/" site.Data.editions.current .id | relURL }}"
+              {{ range where hugo.Data.site.pages "show" "ne" false }}
+                <a href="{{ printf "%s/%s/" hugo.Data.editions.current .id | relURL }}"
                    aria-label="{{ .title }}"
                    class="flex items-center bf-icon-color-hover">
                   <span class="text-sm font-sm">{{ .title }}</span>
@@ -113,7 +113,7 @@
     </div>
   {{ else }}
     <a
-      href="{{ replace (replace .URL "year_token" site.Data.editions.current) "YEAR_TOKEN" site.Data.editions.current }}"
+      href="{{ replace (replace .URL "year_token" hugo.Data.editions.current) "YEAR_TOKEN" hugo.Data.editions.current }}"
       {{ if or (strings.HasPrefix .URL "http:" ) (strings.HasPrefix .URL "https:" ) }}
         target="_blank"
       {{ end }}
@@ -127,7 +127,7 @@
       {{ end }}
       {{ if .Name }}
         <span class="text-sm font-medium break-normal">
-          {{ replace .Name "YEAR_TOKEN" site.Data.editions.current | markdownify }}
+          {{ replace .Name "YEAR_TOKEN" hugo.Data.editions.current | markdownify }}
         </span>
       {{ end }}
     </a>

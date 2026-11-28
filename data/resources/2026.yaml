@@ -1,0 +1,21 @@
+# ==================================================
+# RESOURCES — 2026 (demo past edition)
+# ==================================================
+# After an edition, collect slides, summaries and links here.
+# Local files: put them in static/files/2026/ and write
+# "files/2026/name.pdf" (no leading slash).
+# ==================================================
+
+presentations:
+  - title: "Where We Started"
+    author: "Robin Sample"
+    url: "https://example.org"
+
+videos: []
+
+reports:
+  - title: "Summary of the discussion groups"
+    description: "Open problems and ideas for collaboration collected during the day."
+    url: "https://example.org"
+
+links: []

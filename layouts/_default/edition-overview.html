@@ -132,7 +132,10 @@
   <nav class="ed-ov-nav" aria-label="Edition pages">
     {{/* Cards come from the "pages:" list in data/site.yaml;
          a card is shown only if the page exists for this year. */}}
-    {{ range where hugo.Data.site.pages "show" "ne" false }}
+    {{/* Past editions are an archive: they show every page they have.
+         "show: false" only hides pages of the current/upcoming edition. */}}
+    {{ $pages := cond $isPast hugo.Data.site.pages (where hugo.Data.site.pages "show" "ne" false) }}
+    {{ range $pages }}
       {{ if site.GetPage (printf "/%s/%s" $year .id) }}
       <a class="ed-ov-card" href="{{ printf "%s%s/" $base .id | relURL }}">
         <span class="ed-ov-icon" aria-hidden="true">{{ .icon | default (index $icons .id) | default "✨" }}</span>
