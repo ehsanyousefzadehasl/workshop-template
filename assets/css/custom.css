@@ -6,18 +6,20 @@ WORKSHOP TEMPLATE — SHARED DESIGN
 Used across annual workshop editions.
 
 MAINTENANCE:
-- Colors and typography: edit here.
+- Colours come from the palette in data/site.yaml
+  (see layouts/partials/extend-head.html).
 - Annual content: edit data/*.yaml.
 - Avoid editing themes/blowfish/.
 =================================================
 */
 
 :root {
-  --workshop-ink: #14213a;
-  --workshop-muted: #61718c;
-  --workshop-blue: #2563eb;
-  --workshop-line: #e2e8f0;
-  --workshop-surface: #f3f7fc;
+  /* Follow the site palette (layouts/partials/extend-head.html) */
+  --workshop-ink: var(--w-ink);
+  --workshop-muted: var(--w-muted);
+  --workshop-blue: var(--w-accent);
+  --workshop-line: var(--w-line);
+  --workshop-surface: var(--w-soft);
 }
 
 /* EDITION OVERVIEW */

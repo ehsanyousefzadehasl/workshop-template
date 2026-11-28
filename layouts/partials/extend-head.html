@@ -1,0 +1,53 @@
+{{/*
+  SITE-WIDE COLOUR PALETTE
+
+  Chosen with "palette:" (and optional "accent:") in data/site.yaml.
+  Defines CSS variables used by every page:
+    --w-accent, --w-accent-dark, --w-soft, --w-tint, --w-line, --w-ink, --w-muted
+  It also sets Blowfish's own primary colour, so the menu, links,
+  search and dark mode follow the palette too.
+
+  To add a palette, add one entry to $palettes below.
+  "primary" lists Blowfish's shades 50..900 as "r, g, b".
+*/}}
+
+{{ $site := hugo.Data.site }}
+
+{{ $palettes := dict
+  "sage" (dict
+    "accent" "#5f8250" "dark" "#42603a" "soft" "#f5f3ea" "tint" "#e4e9d6" "line" "#e3e4d3"
+    "primary" (slice "242,245,241" "229,235,227" "204,215,199" "172,190,164" "133,160,122" "95,130,80" "82,112,69" "68,94,58" "55,75,46" "42,57,35"))
+  "terracotta" (dict
+    "accent" "#d9623b" "dark" "#b4472a" "soft" "#fdf3ea" "tint" "#fbe7d6" "line" "#f1dfcf"
+    "primary" (slice "252,242,239" "249,230,224" "243,205,192" "235,173,153" "226,136,106" "217,98,59" "187,84,51" "156,71,42" "126,57,34" "95,43,26"))
+  "berry" (dict
+    "accent" "#c2416f" "dark" "#93294f" "soft" "#fcf1f4" "tint" "#f7dce6" "line" "#f1dbe3"
+    "primary" (slice "250,240,243" "245,225,232" "235,194,209" "223,156,180" "209,111,146" "194,65,111" "167,56,95" "140,47,80" "113,38,64" "85,29,49"))
+}}
+
+{{ $pal := index $palettes ($site.palette | default "sage") | default (index $palettes "sage") }}
+{{ $accent := $site.accent | default $pal.accent }}
+{{ $dark := cond (isset $site "accent") $site.accent $pal.dark }}
+{{ $shades := slice 50 100 200 300 400 500 600 700 800 900 }}
+
+<style>
+  :root {
+    --w-ink: #3b2a20;
+    --w-muted: #7a6656;
+    --w-accent: {{ $accent | safeCSS }};
+    --w-accent-dark: {{ $dark | safeCSS }};
+    --w-soft: {{ $pal.soft | safeCSS }};
+    --w-tint: {{ $pal.tint | safeCSS }};
+    --w-line: {{ $pal.line | safeCSS }};
+    {{ range $i, $s := $shades }}
+    --color-primary-{{ $s }}: {{ index $pal.primary $i | safeCSS }};
+    {{- end }}
+  }
+  .dark {
+    --w-ink: #f5ede6;
+    --w-muted: #cdbdb0;
+    --w-soft: #2a2420;
+    --w-tint: #382f29;
+    --w-line: #4a3f37;
+  }
+</style>
