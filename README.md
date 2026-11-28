@@ -1,10 +1,10 @@
-# Workshop Template
+# Perennial
 
-A ready-to-use website template for **workshops, seminars and recurring events**, built with [Hugo](https://gohugo.io) and the [Blowfish](https://blowfish.page) theme.
+Perennial is a website template for events that come back every year, such as **workshops, seminars and recurring events**, built with [Hugo](https://gohugo.io) and the [Blowfish](https://blowfish.page) theme.
 
 Everything you change lives in a few YAML files: no HTML needed. Push to GitHub and the site publishes itself on GitHub Pages.
 
-**[Live demo →](https://ehsanyousefzadehasl.github.io/workshop-template/)**
+**[Live demo →](https://ehsanyousefzadehasl.github.io/perennial-hugo/)**
 
 ![Homepage of the demo site](docs/images/home.png)
 
