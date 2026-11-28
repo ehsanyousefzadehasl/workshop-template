@@ -15,24 +15,32 @@
 <style>
   .workshop-gallery {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 16px;
-    margin-top: 28px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 18px;
+    margin-top: 26px;
   }
-  .workshop-gallery figure { margin: 0; }
-  .workshop-gallery a { display: block; border-radius: 12px; overflow: hidden; }
+  .workshop-gallery figure {
+    margin: 0;
+    padding: 10px 10px 12px;
+    border-radius: 22px;
+    background: var(--w-soft);
+  }
+  .workshop-gallery a { display: block; border-radius: 16px; overflow: hidden; }
   .workshop-gallery img {
-    width: 100%; height: auto; display: block; margin: 0;
-    transition: transform .25s ease;
+    width: 100%; height: auto; display: block; margin: 0 !important;
+    transition: transform .3s ease;
   }
-  .workshop-gallery a:hover img { transform: scale(1.03); }
+  .workshop-gallery a:hover img { transform: scale(1.04); }
   .workshop-gallery figcaption {
-    font-size: .85rem; margin-top: 8px; color: #64748b;
+    margin: 10px 6px 0;
+    font-size: .88rem;
+    font-weight: 600;
+    color: var(--w-ink);
   }
 </style>
 
 {{ with $images }}
-  <div class="workshop-gallery">
+  <div class="workshop-gallery w-wide">
     {{ range sort . "Name" }}
       {{ $thumb := .Fill "600x400 Center" }}
       {{ $full := .Fit "1920x1920" }}
@@ -49,5 +57,5 @@
     {{ end }}
   </div>
 {{ else }}
-  <p>Photos will be added after the workshop.</p>
+  <p class="w-note">📸 Photos will be added after the event.</p>
 {{ end }}
