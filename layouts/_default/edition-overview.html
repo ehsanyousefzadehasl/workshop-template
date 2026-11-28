@@ -11,107 +11,137 @@
 {{ define "main" }}
 
 {{ $year := .Section }}
-{{ $edition := index (where site.Data.editions.editions "year" $year) 0 }}
+{{ $edition := index (where hugo.Data.editions.editions "year" $year) 0 }}
 {{ $base := printf "%s/" $year }}
 
+{{ $photo := printf "images/editions/%s.jpg" $year }}
+{{ $isPast := eq $edition.status "past" }}
+{{ $isCurrent := eq $year hugo.Data.editions.current }}
+
+{{/* Icon per page; override with "icon:" in the pages list of data/site.yaml */}}
+{{ $icons := dict "speakers" "🎤" "program" "🗓️" "participation" "🎟️" "organizers" "🤝" "resources" "📚" "gallery" "📸" }}
+
 <style>
-  .edition-overview {
-    max-width: 1050px;
-    margin: 30px auto 90px;
-  }
+  .ed-ov { max-width: 1080px; margin: 18px auto 90px; }
 
-  .edition-header {
-    padding: 45px;
-    border-radius: 18px;
-    background: linear-gradient(125deg, #07152f, #102d58);
-    color: white;
-  }
-
-  .edition-header h1 {
-    color: white;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    font-weight: 800;
-    margin: 0 0 18px;
-  }
-
-  .edition-header p {
-    color: #dbeafe;
-    line-height: 1.7;
-    max-width: 750px;
-  }
-
-  .edition-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 14px 30px;
-    margin-top: 30px;
-    color: #bfdbfe;
-  }
-
-  .edition-nav {
+  .ed-ov-hero {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 18px;
-    margin-top: 35px;
+    grid-template-columns: 1.2fr .8fr;
+    gap: 40px;
+    align-items: center;
+    padding: clamp(28px, 5vw, 52px);
+    border-radius: 32px;
+    background: var(--w-soft);
+    color: var(--w-ink);
   }
-
-  .edition-link {
-    display: block;
-    padding: 28px;
-    border: 1px solid #94a3b830;
-    border-radius: 14px;
-    background: #94a3b80a;
-    text-decoration: none !important;
-    transition: border-color .2s, transform .2s;
-  }
-
-  .edition-link:hover {
-    border-color: #3b82f6;
-    transform: translateY(-3px);
-  }
-
-  .edition-link h2 {
-    font-size: 1.25rem;
+  .ed-ov-hero.no-photo { grid-template-columns: 1fr; }
+  .ed-ov-pill {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--w-tint);
+    color: var(--w-accent-dark);
+    font-size: .8rem;
     font-weight: 700;
-    margin-bottom: 8px;
+  }
+  .ed-ov-hero h1 {
+    margin: 16px 0 8px;
+    font-size: clamp(2.3rem, 5vw, 3.8rem);
+    font-weight: 800;
+    letter-spacing: -.02em;
+    line-height: 1.1;
+    color: var(--w-ink);
+  }
+  .ed-ov-theme { margin: 0 0 22px; font-size: 1.2rem; font-weight: 600; color: var(--w-accent-dark); }
+  .ed-ov-facts { display: flex; flex-wrap: wrap; gap: 10px; }
+  .ed-ov-facts span {
+    padding: 7px 13px;
+    border-radius: 12px;
+    background: #fff;
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--w-ink);
+  }
+  .dark .ed-ov-facts span { background: var(--w-tint); }
+  .ed-ov-photo {
+    aspect-ratio: 4 / 3;
+    border-radius: 24px;
+    border: 6px solid #fff;
+    background-size: cover;
+    background-position: center;
+    transform: rotate(2deg);
+    box-shadow: 0 18px 40px rgba(60, 40, 20, .16);
   }
 
-  .edition-link p {
-    color: #94a3b8;
-    font-size: .95rem;
-    line-height: 1.6;
+  .ed-ov-nav {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 18px;
+    margin-top: 34px;
   }
+  .ed-ov-card {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 24px;
+    border-radius: 22px;
+    background: var(--w-soft);
+    text-decoration: none !important;
+    transition: transform .2s ease, background .2s ease;
+  }
+  .ed-ov-card:hover { transform: translateY(-3px); background: var(--w-tint); }
+  .ed-ov-icon {
+    flex: 0 0 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 14px;
+    background: #fff;
+    font-size: 1.4rem;
+  }
+  .dark .ed-ov-icon { background: var(--w-tint); }
+  .ed-ov-card h2 { margin: 2px 0 6px; font-size: 1.15rem; font-weight: 750; color: var(--w-ink); }
+  .ed-ov-card p { margin: 0; font-size: .92rem; line-height: 1.55; color: var(--w-muted); }
 
-  @media (max-width: 700px) {
-    .edition-header { padding: 30px; }
-    .edition-nav { grid-template-columns: 1fr; }
+  @media (max-width: 760px) {
+    .ed-ov-hero { grid-template-columns: 1fr; }
+    .ed-ov-photo { transform: none; }
   }
 </style>
 
-<div class="edition-overview">
+<div class="ed-ov">
 
-  <header class="edition-header">
-    <h1>{{ site.Title }} {{ $year }}</h1>
-
-    <p>{{ $edition.theme }}</p>
-
-    <div class="edition-meta">
-      <span>📍 {{ $edition.location }}</span>
-      <span>📅 {{ $edition.date }}</span>
-      <span>👥 {{ $edition.audience }}</span>
+  <header class="ed-ov-hero{{ if not (fileExists (printf "static/%s" $photo)) }} no-photo{{ end }}">
+    <div>
+      <span class="ed-ov-pill">
+        {{ if $isPast }}Past edition{{ else if $isCurrent }}Current edition{{ else }}Upcoming edition{{ end }}
+      </span>
+      <h1>{{ site.Title }} {{ $year }}</h1>
+      {{ with $edition.theme }}<p class="ed-ov-theme">{{ . }}</p>{{ end }}
+      <div class="ed-ov-facts">
+        {{ with $edition.date }}<span>📅 {{ . }}</span>{{ end }}
+        {{ with $edition.location }}<span>📍 {{ . }}</span>{{ end }}
+        {{ with $edition.audience }}<span>👥 {{ . }}</span>{{ end }}
+      </div>
     </div>
+    {{ if fileExists (printf "static/%s" $photo) }}
+      <div class="ed-ov-photo" style="background-image:url('{{ $photo | relURL }}')" aria-hidden="true"></div>
+    {{ end }}
   </header>
 
-  <nav class="edition-nav" aria-label="Edition pages">
-    {{/* Cards come from the "pages:" list in data/site.yaml */}}
-    {{/* A card is shown only if the page exists for this year */}}
-    {{ range where site.Data.site.pages "show" "ne" false }}
-    {{ if site.GetPage (printf "/%s/%s" $year .id) }}
-    <a class="edition-link" href="{{ printf "%s%s/" $base .id | relURL }}">
-      <h2>{{ .title }} →</h2>
-      {{ with .description }}<p>{{ . }}</p>{{ end }}
-    </a>
-    {{ end }}
+  <nav class="ed-ov-nav" aria-label="Edition pages">
+    {{/* Cards come from the "pages:" list in data/site.yaml;
+         a card is shown only if the page exists for this year. */}}
+    {{ range where hugo.Data.site.pages "show" "ne" false }}
+      {{ if site.GetPage (printf "/%s/%s" $year .id) }}
+      <a class="ed-ov-card" href="{{ printf "%s%s/" $base .id | relURL }}">
+        <span class="ed-ov-icon" aria-hidden="true">{{ .icon | default (index $icons .id) | default "✨" }}</span>
+        <span>
+          <h2>{{ .title }}</h2>
+          {{ with .description }}<p>{{ . }}</p>{{ end }}
+        </span>
+      </a>
+      {{ end }}
     {{ end }}
   </nav>
 

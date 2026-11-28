@@ -11,59 +11,72 @@
   No yearly changes needed here.
 */}}
 
-{{ $current := site.Data.editions.current }}
-{{ $all := sort site.Data.editions.editions "year" "desc" }}
+{{ $current := hugo.Data.editions.current }}
+{{ $all := sort hugo.Data.editions.editions "year" "desc" }}
 {{ $past := where $all "status" "past" }}
 {{ $active := where $all "status" "ne" "past" }}
 
 <style>
   .ed-group-title {
-    margin: 44px 0 0;
+    margin: 40px 0 0;
     font-size: .85rem;
     font-weight: 700;
     letter-spacing: .08em;
     text-transform: uppercase;
-    color: #64748b;
+    color: var(--w-muted);
   }
   .ed-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-    gap: 22px;
-    margin: 18px 0 10px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr));
+    gap: 20px;
+    margin: 16px 0 10px;
   }
   .ed-card {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 1px solid #94a3b840;
-    border-radius: 16px;
-    background: #94a3b80a;
+    border-radius: 24px;
+    background: var(--w-soft);
+    transition: transform .2s ease;
   }
-  .ed-card.is-current { border-color: #3b82f6; }
+  .ed-card:hover { transform: translateY(-3px); }
+  .ed-card.is-current { box-shadow: 0 0 0 2px var(--w-accent); }
   .ed-banner {
     position: relative;
     height: 150px;
-    background: linear-gradient(135deg, #152e55, #2563eb);
+    background: linear-gradient(135deg, var(--w-tint), var(--w-accent));
   }
-  .ed-banner img {
-    width: 100%; height: 100%; object-fit: cover; margin: 0;
-  }
+  .ed-banner img { width: 100%; height: 100%; object-fit: cover; margin: 0; }
   .ed-badge {
     position: absolute; top: 14px; left: 14px;
-    padding: 4px 10px;
+    padding: 5px 12px;
     border-radius: 999px;
-    font-size: .72rem; font-weight: 700;
-    letter-spacing: .06em; text-transform: uppercase;
-    background: #ffffffe6; color: #1e3a8a;
+    font-size: .75rem; font-weight: 700;
+    background: var(--w-accent); color: #fff;
   }
-  .ed-badge.past { background: #e2e8f0e6; color: #334155; }
-  .ed-body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
-  .ed-body h2 { margin: 0 0 8px; font-size: 1.9rem; font-weight: 750; }
-  .ed-theme { margin: 0 0 10px; font-weight: 600; line-height: 1.5; }
-  .ed-meta { margin: 0; font-size: .9rem; color: #64748b; }
-  .ed-links { display: flex; flex-wrap: wrap; gap: 6px 14px; margin: 16px 0 0; font-size: .88rem; }
-  .ed-links a, .ed-explore { color: #3b82f6; text-decoration: none; font-weight: 600; }
-  .ed-explore { margin-top: auto; padding-top: 18px; }
+  .ed-badge.past { background: #fff; color: var(--w-ink); }
+  .ed-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+  .ed-body h2 { margin: 0 0 6px; font-size: 1.8rem; font-weight: 800; color: var(--w-ink); }
+  .ed-theme { margin: 0 0 8px; font-weight: 600; line-height: 1.5; color: var(--w-accent-dark); }
+  .ed-meta { margin: 0; font-size: .9rem; color: var(--w-muted); }
+  .ed-links { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+  .ed-links a {
+    padding: 4px 11px;
+    border-radius: 999px;
+    background: #fff;
+    font-size: .82rem; font-weight: 600;
+    color: var(--w-accent-dark);
+    text-decoration: none !important;
+  }
+  .dark .ed-links a, .dark .ed-badge.past { background: var(--w-tint); color: var(--w-ink); }
+  .ed-explore {
+    align-self: flex-start;
+    margin-top: auto;
+    padding-top: 16px;
+    font-weight: 700;
+    color: var(--w-accent) !important;
+    text-decoration: none !important;
+  }
 </style>
 
 {{ $groups := slice
@@ -94,7 +107,7 @@
           <p class="ed-meta">{{ .location }}{{ with .date }} · {{ . }}{{ end }}</p>
 
           <div class="ed-links">
-            {{ range where site.Data.site.pages "show" "ne" false }}
+            {{ range where hugo.Data.site.pages "show" "ne" false }}
               {{ $label := .title }}
               {{ with site.GetPage (printf "/%s/%s" $year .id) }}
                 <a href="{{ .RelPermalink }}">{{ $label }}</a>
