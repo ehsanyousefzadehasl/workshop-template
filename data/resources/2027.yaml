@@ -21,7 +21,10 @@ reports: []
 #   description: "Key challenges, discussion outcomes, and potential collaborations."
 #   url: "/files/2027/reports/workshop-summary.pdf"
 
-links: []
+links:
+  - title: "Hugo documentation"
+    description: "The static site generator behind this template."
+    url: "https://gohugo.io/documentation/"
 # - title: "Related Project"
 #   description: "Software and research artifacts discussed during the workshop."
 #   url: "https://github.com/example/project"

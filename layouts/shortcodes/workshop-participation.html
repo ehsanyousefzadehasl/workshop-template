@@ -1,112 +1,67 @@
-
 {{/*
   PARTICIPATION
 
-  Reads data/participation/YEAR.yaml.
-  No annual changes needed here.
+  Reads data/participation/YEAR.yaml (YEAR = the folder of the page).
+  Styles: assets/css/custom.css.
+
+  No yearly changes needed here.
 */}}
 
 {{ $year := .Page.Section }}
-{{ $data := index site.Data.participation $year }}
-
-<style>
-  .aats-info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 20px;
-    margin: 28px 0;
-  }
-  .aats-info-card {
-    padding: 28px;
-    border: 1px solid #94a3b830;
-    border-radius: 16px;
-    background: #94a3b80a;
-  }
-  .aats-info-card h2 {
-    font-size: 1.25rem;
-    font-weight: 700;
-    margin: 0 0 14px;
-  }
-  .aats-info-card p {
-    line-height: 1.7;
-    margin: 8px 0;
-  }
-  .aats-info-button {
-    display: inline-block;
-    padding: 11px 20px;
-    margin-top: 15px;
-    border-radius: 8px;
-    background: #2563eb;
-    color: white !important;
-    text-decoration: none !important;
-    font-weight: 650;
-  }
-  @media (max-width: 700px) {
-    .aats-info-grid { grid-template-columns: 1fr; }
-  }
-</style>
+{{ $data := index hugo.Data.participation $year }}
 
 {{ with $data }}
-<div class="aats-info-grid">
+<div class="w-cards w-wide">
 
-  <section class="aats-info-card">
-    <h2>Registration</h2>
-
+  <section class="w-card">
+    <h2><span class="w-icon" aria-hidden="true">🎟️</span>Registration</h2>
     {{ if and (eq .registration.status "open") .registration.url }}
       <p>Registration is open.</p>
-      <a class="aats-info-button"
-         href="{{ .registration.url }}"
-         target="_blank" rel="noopener noreferrer">
-        Register for the Workshop →
-      </a>
     {{ else if eq .registration.status "closed" }}
       <p>Registration is closed.</p>
     {{ else }}
-      <p>Registration details will be announced soon.</p>
+      <p class="w-muted">Registration details will be announced soon.</p>
     {{ end }}
-
-    <p><strong>Capacity:</strong> {{ .registration.capacity }}</p>
-
-    {{ with .registration.deadline }}
-      <p><strong>Deadline:</strong> {{ . }}</p>
-    {{ end }}
-
-    {{ with .registration.fee }}
-      <p><strong>Fee:</strong> {{ . }}</p>
+    {{ with .registration.capacity }}<p><strong>Capacity:</strong> {{ . }}</p>{{ end }}
+    {{ with .registration.deadline }}<p><strong>Deadline:</strong> {{ . }}</p>{{ end }}
+    {{ with .registration.fee }}<p><strong>Fee:</strong> {{ . }}</p>{{ end }}
+    {{ if and (eq .registration.status "open") .registration.url }}
+      <a class="w-button" href="{{ .registration.url }}" target="_blank" rel="noopener noreferrer">Register →</a>
     {{ end }}
   </section>
 
-  <section class="aats-info-card">
-    <h2>Venue</h2>
-    <p><strong>{{ .venue.name }}</strong></p>
-    <p>{{ .venue.city }}</p>
-
-    {{ with .venue.address }}
-      <p>{{ . }}</p>
-    {{ end }}
-
-    {{ with .venue.map_url }}
-      <p><a href="{{ . }}" target="_blank"
-            rel="noopener noreferrer">View Map →</a></p>
-    {{ end }}
+  {{ with .venue }}
+  <section class="w-card">
+    <h2><span class="w-icon" aria-hidden="true">📍</span>Venue</h2>
+    {{ with .name }}<p><strong>{{ . }}</strong></p>{{ end }}
+    {{ with .address }}<p>{{ . }}</p>{{ end }}
+    {{ with .city }}<p>{{ . }}</p>{{ end }}
+    {{ with .map_url }}<a class="w-pill-link" href="{{ . }}" target="_blank" rel="noopener noreferrer">View map →</a>{{ end }}
   </section>
+  {{ end }}
 
-  <section class="aats-info-card">
-    <h2>Travel & Accommodation</h2>
-    <p>{{ .travel.information }}</p>
+  {{ with .travel.information }}
+  <section class="w-card">
+    <h2><span class="w-icon" aria-hidden="true">🚆</span>Travel</h2>
+    <p>{{ . }}</p>
   </section>
+  {{ end }}
 
-  <section class="aats-info-card">
-    <h2>Accessibility</h2>
-    <p>{{ .accessibility.information }}</p>
+  {{ with .accessibility.information }}
+  <section class="w-card">
+    <h2><span class="w-icon" aria-hidden="true">♿</span>Accessibility</h2>
+    <p>{{ . }}</p>
   </section>
+  {{ end }}
+
+  {{ with .contact.email }}
+  <section class="w-card">
+    <h2><span class="w-icon" aria-hidden="true">✉️</span>Contact</h2>
+    <p>Questions? Write to <a href="mailto:{{ . }}">{{ . }}</a>.</p>
+  </section>
+  {{ end }}
 
 </div>
-
-{{ with .contact.email }}
-  <p>Questions? Contact <a href="mailto:{{ . }}">{{ . }}</a>.</p>
-{{ end }}
-
 {{ else }}
   <p>Participation details will be announced soon.</p>
 {{ end }}
