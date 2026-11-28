@@ -6,7 +6,7 @@ Everything you change lives in a few YAML files: no HTML needed. Push to GitHub 
 
 **[Live demo →](https://ehsanyousefzadehasl.github.io/workshop-template/)**
 
-![Homepage of the demo site](docs/images/screenshot-home.png)
+![Homepage of the demo site](docs/images/home.png)
 
 ## Features
 
