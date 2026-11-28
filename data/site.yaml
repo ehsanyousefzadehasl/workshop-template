@@ -3,7 +3,7 @@
 # ==================================================
 #
 # The workshop NAME is set in config/_default/languages.en.toml (title).
-# Year, location, date and audience come from data/editions.yaml.
+# Details of each year (date, place, theme) live in data/editions.yaml.
 #
 # Any section below can be removed to hide it on the homepage.
 # ==================================================
@@ -19,8 +19,19 @@ description: >-
   A one-day workshop bringing together researchers and practitioners
   to share work in progress, discuss open problems, and start new collaborations.
 
-# Shown next to the audience size in the hero
-format_note: "One-day interactive workshop"
+# General facts about the event, shown as small chips on the homepage.
+# Describe the event as a whole, not one year. Remove lines you don't
+# want, or delete "facts:" entirely.
+facts:
+  - icon: "🗓️"
+    text: "Every December"
+  - icon: "📍"
+    text: "Example City"
+
+# The homepage button leads to the current edition. Its default text is
+# "Join us in YEAR →" (upcoming edition) or "Relive YEAR →" (past edition).
+# Uncomment to use your own text:
+# button: "See this year's edition →"
 
 # Colour palette: sage (default) | terracotta | berry
 palette: sage
