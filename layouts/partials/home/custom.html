@@ -23,14 +23,7 @@ Do not modify themes/blowfish/.
 {{ $editionURL := printf "%s/" $year | relURL }}
 {{ $archive := where site.Data.editions.editions "year" "ne" $year }}
 {{ $site := site.Data.site }}
-{{/* Colour palettes, chosen with "palette:" in data/site.yaml */}}
-{{ $palettes := dict
-  "sage"       (dict "accent" "#5f8250" "dark" "#42603a" "soft" "#f5f3ea" "tint" "#e4e9d6" "line" "#e3e4d3")
-  "terracotta" (dict "accent" "#d9623b" "dark" "#b4472a" "soft" "#fdf3ea" "tint" "#fbe7d6" "line" "#f1dfcf")
-  "berry"      (dict "accent" "#c2416f" "dark" "#93294f" "soft" "#fcf1f4" "tint" "#f7dce6" "line" "#f1dbe3")
-}}
-{{ $pal := index $palettes ($site.palette | default "sage") | default (index $palettes "sage") }}
-{{ with $site.accent }}{{ $pal = merge $pal (dict "accent" . "dark" .) }}{{ end }}
+
 
 <style>
   /* ==========================================
@@ -333,17 +326,10 @@ Do not modify themes/blowfish/.
 
   /* ==========================================
      WARM & SOCIAL STYLE
-     Colours come from "palette" (and optional "accent")
-     in data/site.yaml.
+     Colours (--w-*) are defined site-wide in
+     layouts/partials/extend-head.html from data/site.yaml.
      ========================================== */
   .aat-home {
-    --w-ink: #3b2a20;
-    --w-muted: #7a6656;
-    --w-accent: {{ $pal.accent }};
-    --w-accent-dark: {{ $pal.dark }};
-    --w-soft: {{ $pal.soft }};
-    --w-tint: {{ $pal.tint }};
-    --w-line: {{ $pal.line }};
     --aat-ink: var(--w-ink);
     --aat-muted: var(--w-muted);
     --aat-blue: var(--w-accent);
@@ -416,9 +402,6 @@ Do not modify themes/blowfish/.
   .aat-edition { background: var(--w-tint); border-radius: 28px; }
   .aat-home .aat-button { background: var(--w-accent); border-radius: 999px; }
 
-  .dark .aat-home {
-    --w-ink: #f5e9df; --w-muted: #cdb8a8; --w-soft: #2b211b; --w-tint: #3a2b22; --w-line: #4a382c;
-  }
   .dark .w-facts span, .dark .w-btn-ghost { background: #3a2b22; color: #f5e9df; }
 
   @media (max-width: 800px) {
