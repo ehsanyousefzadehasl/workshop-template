@@ -22,6 +22,12 @@ description: >-
 # Shown next to the audience size in the hero
 format_note: "One-day interactive workshop"
 
+# Colour palette: sage (default) | terracotta | berry
+palette: sage
+
+# Optional: use your own main colour instead (any CSS colour)
+# accent: "#2563eb"
+
 # ==================================================
 # EDITION PAGES
 # Which pages each edition has. Order here = order in the
